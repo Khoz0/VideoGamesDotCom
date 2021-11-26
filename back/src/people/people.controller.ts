@@ -1,12 +1,29 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Put} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Put,
+  UseInterceptors,
+  ClassSerializerInterceptor
+} from '@nestjs/common';
 import { PeopleService } from './people.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import {ApiBody, ApiNoContentResponse, ApiOkResponse, ApiParam, ApiTags} from "@nestjs/swagger";
 import {PersonEntity} from "./entities/person.entity";
+import {Observable} from "rxjs";
+import {HttpInterceptor} from "../interceptors/http.interceptor";
+import {HandlerParams} from "./validators/handler-params";
+import * as mongoose from "mongoose";
 
 @ApiTags('people')
 @Controller('people')
+@UseInterceptors(ClassSerializerInterceptor)
+@UseInterceptors(HttpInterceptor)
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 
@@ -30,7 +47,7 @@ export class PeopleController {
   })
   @ApiNoContentResponse({description: 'No person exists in database'})
   @Get()
-  findAll() {
+  findAll(): Observable<PersonEntity[] | void> {
     return this.peopleService.findAll();
   }
 
@@ -45,8 +62,8 @@ export class PeopleController {
     allowEmptyValue: false,
   })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.peopleService.findOne(+id);
+  findOne(@Param() params: HandlerParams): Observable<PersonEntity> {
+    return this.peopleService.findOne(params.id);
   }
 
   @ApiOkResponse({
