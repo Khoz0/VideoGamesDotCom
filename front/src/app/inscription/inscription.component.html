@@ -6,49 +6,61 @@
       </mat-card-title>
     </mat-card-content>
     <form [formGroup]="form">
-      <div style="text-align: center">
-        <mat-form-field appearance="outline">
-          <mat-label>Nom</mat-label>
-          <input name="nom" matInput placeholder="Placeholder" minlength="2" required>
-          <mat-error *ngIf="form.get('nom')?.dirty && form.get('nom')?.hasError('required')">
-            Le nom est <strong>Obligatoire</strong>
+      <div style="text-align: center; margin-bottom: 2vh">
+        <mat-form-field appearance="outline" style="width: 30vh">
+          <mat-label>Pseudo</mat-label>
+          <input name="pseudo" matInput placeholder="Placeholder" formControlName="pseudo" minlength="2" required>
+          <mat-error *ngIf="form.get('pseudo')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('pseudo')?.hasError('minlength')">
+            Le champs doit mesurer <strong>2 caractères minimum</strong>
           </mat-error>
         </mat-form-field>
       </div>
-      <div style="text-align: center">
-        <mat-form-field appearance="outline">
-          <mat-label>Prenom</mat-label>
-          <input matInput placeholder="Placeholder">
-        </mat-form-field>
-      </div>
-      <div style="text-align: center">
-        <mat-form-field appearance="outline">
-          <mat-label>Pseudo</mat-label>
-          <input matInput placeholder="Placeholder">
-        </mat-form-field>
-      </div>
-      <div style="text-align: center">
-        <mat-form-field appearance="outline">
+      <div style="text-align: center; margin-bottom: 2vh">
+        <mat-form-field appearance="outline" style="width: 30vh">
           <mat-label>Mail</mat-label>
-          <input matInput placeholder="Placeholder">
+          <input name="email" matInput placeholder="Placeholder" formControlName="email" required>
+          <mat-error *ngIf="form.get('email')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="!form.get('email')?.hasError('required') && form.get('email')?.hasError('pattern')">
+            Email invalide <strong>(ex: name.firstname@mailBox.com)</strong>
+          </mat-error>
         </mat-form-field>
       </div>
-      <div style="text-align: center">
-        <mat-form-field appearance="outline">
+      <div style="text-align: center; margin-bottom: 2vh">
+        <mat-form-field appearance="outline" style="width: 30vh">
           <mat-label>Mot de passe</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'">
+          <input name="password" matInput [type]="hide ? 'password' : 'text'" formControlName="password" required> <!--minlength="8"-->
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          <mat-error *ngIf="form.get('password')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('password')?.hasError('minlength')">
+            Le champs doit mesurer <strong>8 caractères minimum</strong>
+          </mat-error>
         </mat-form-field>
       </div>
-      <div style="text-align: center">
-        <mat-form-field appearance="outline">
+      <div style="text-align: center; margin-bottom: 2vh">
+        <mat-form-field appearance="outline" style="width: 30vh">
           <mat-label>Confirmation</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'">
-          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input name="repeatPassword" matInput [type]="hideRepeat ? 'password' : 'text'" formControlName="repeatPassword" required>
+          <button mat-icon-button matSuffix type="button" (click)="hideRepeat = !hideRepeat" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeat">
+            <mat-icon>{{hideRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          <mat-error *ngIf="form.get('repeatPassword')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('repeatPassword')?.hasError('minlength')">
+            Le champs doit mesurer <strong>8 caractères minimum</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('repeatPassword')?.hasError('mustMatch')">
+            Le champs doit être le <strong>même que le mdp</strong>
+          </mat-error>
         </mat-form-field>
       </div>
       <button mat-flat-button class="button">Inscription</button>
