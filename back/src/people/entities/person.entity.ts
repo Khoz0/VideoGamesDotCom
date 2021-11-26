@@ -33,5 +33,8 @@ export class PersonEntity {
     @Type(() => String)
     password: string;
 
+    constructor(partial: Partial<PersonEntity>) {
+        Object.assign(this, partial);
+    }
 
 }
