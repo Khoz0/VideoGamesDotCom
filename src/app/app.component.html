@@ -1,0 +1,21 @@
+<!-- Toolbar -->
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <img src="assets/images/logo.png" alt="logoVGC" [routerLink]="'/home'" width="40" height="50">
+    <h1><a mat-button [routerLink]="'/home'">{{ title }}</a></h1>
+    <a mat-button [routerLink]="'/tests'"> Tests </a>
+    <a mat-button [routerLink]="'/actualites'"> Actus </a>
+    <a mat-button [routerLink]="'/forum'"> Forum </a>
+    <a mat-button [routerLink]="'/mon-compte'" *ngIf="isConnected"> Mon compte </a>
+    <div class="spacer"></div>
+    <mat-icon>search</mat-icon>
+    <a mat-button [routerLink]="'/inscription'" *ngIf="!isConnected"> Inscription </a>
+    <a mat-button (click)="connexion()" [routerLink]="'/connexion'" *ngIf="!isConnected"> Connexion </a>
+    <a mat-button (click)="deconnexion()" [routerLink]="'/home'" *ngIf="isConnected"> Deconnexion </a>
+    <button mat-icon-button matSuffix (click)="lightTheme = !lightTheme" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="lightTheme">
+      <mat-icon>{{lightTheme ? 'brightness_7' : 'brightness_3'}}</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

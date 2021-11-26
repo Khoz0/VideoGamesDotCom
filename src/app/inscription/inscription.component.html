@@ -1,0 +1,57 @@
+<div class="parent">
+  <mat-card class="mat-whiteframe-2dp">
+    <mat-card-content>
+      <mat-card-title>
+        Création de votre compte
+      </mat-card-title>
+    </mat-card-content>
+    <form [formGroup]="form">
+      <div style="text-align: center">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom</mat-label>
+          <input name="nom" matInput placeholder="Placeholder" minlength="2" required>
+          <mat-error *ngIf="form.get('nom')?.dirty && form.get('nom')?.hasError('required')">
+            Le nom est <strong>Obligatoire</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div style="text-align: center">
+        <mat-form-field appearance="outline">
+          <mat-label>Prenom</mat-label>
+          <input matInput placeholder="Placeholder">
+        </mat-form-field>
+      </div>
+      <div style="text-align: center">
+        <mat-form-field appearance="outline">
+          <mat-label>Pseudo</mat-label>
+          <input matInput placeholder="Placeholder">
+        </mat-form-field>
+      </div>
+      <div style="text-align: center">
+        <mat-form-field appearance="outline">
+          <mat-label>Mail</mat-label>
+          <input matInput placeholder="Placeholder">
+        </mat-form-field>
+      </div>
+      <div style="text-align: center">
+        <mat-form-field appearance="outline">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div style="text-align: center">
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmation</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <button mat-flat-button class="button">Inscription</button>
+    </form>
+  </mat-card>
+</div>
