@@ -1,1 +1,25 @@
-<p>forum works!</p>
+<div class="container">
+  <!-- TODO : ngFor sur un nb de discussions (affichage x par x) -->
+  <div class="row" style="margin-top: 5vh">
+    <mat-card class="col-md-2">
+      <mat-card-title>
+        Date
+      </mat-card-title>
+    </mat-card>
+    <mat-card class="col-md-8" [routerLink]="'/discussion'" (mouseover)="changeText=true" (mouseout)="changeText=false">
+      <mat-card-title-group class="align-content-center">
+        <mat-card-title *ngIf="changeText" style="color: cornflowerblue">
+          une discussion
+        </mat-card-title>
+        <mat-card-title *ngIf="!changeText" style="color: black">
+          une discussion
+        </mat-card-title>
+      </mat-card-title-group>
+    </mat-card>
+    <mat-card class="col-md-2">
+      <mat-card-title>
+        nb Réponses
+      </mat-card-title>
+    </mat-card>
+  </div>
+</div>

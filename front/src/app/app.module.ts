@@ -21,6 +21,8 @@ import { TestsComponent } from './tests/tests.component';
 import { ActualitesComponent } from './actualites/actualites.component';
 import { DeconnexionComponent } from './deconnexion/deconnexion.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { DiscusionComponent } from './shared/discusion/discusion.component';
+import { PostComponent } from './shared/post/post.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     ForumComponent,
     TestsComponent,
     ActualitesComponent,
-    DeconnexionComponent
+    DeconnexionComponent,
+    DiscusionComponent,
+    PostComponent
   ],
     imports: [
         BrowserModule,

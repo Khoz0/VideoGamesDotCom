@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForumComponent implements OnInit {
 
-  constructor() { }
+  changeText: boolean;
+
+  constructor() {
+    this.changeText = false;
+  }
 
   ngOnInit(): void {
   }

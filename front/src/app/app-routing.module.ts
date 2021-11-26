@@ -10,6 +10,7 @@ import {ForumComponent} from "./forum/forum.component";
 import {TestsComponent} from "./tests/tests.component";
 import {ActualitesComponent} from "./actualites/actualites.component";
 import {DeconnexionComponent} from "./deconnexion/deconnexion.component";
+import {DiscusionComponent} from "./shared/discusion/discusion.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'tests', component: TestsComponent },
   { path: 'actualites', component: ActualitesComponent },
   { path: 'deconnexion', component: DeconnexionComponent },
+  { path: 'discussion', component: DiscusionComponent },
 
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '404'}
