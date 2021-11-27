@@ -36,7 +36,7 @@ export class PeopleController {
     type: CreatePersonDto
   })
   @Post()
-  create(@Body() createPersonDto: CreatePersonDto) {
+  create(@Body() createPersonDto: CreatePersonDto) : Observable<PersonEntity> {
     return this.peopleService.create(createPersonDto);
   }
 
@@ -81,8 +81,8 @@ export class PeopleController {
     type: UpdatePersonDto,
   })
   @Put(':id')
-  update(@Param('id') id: string, @Body() updatePersonDto: UpdatePersonDto) {
-    return this.peopleService.update(+id, updatePersonDto);
+  update(@Param() params: HandlerParams, @Body() updatePersonDto: UpdatePersonDto) {
+    return this.peopleService.update(params.id, updatePersonDto);
   }
 
   @ApiOkResponse({
@@ -95,7 +95,7 @@ export class PeopleController {
     allowEmptyValue: false,
   })
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.peopleService.remove(+id);
+  remove(@Param() params: HandlerParams): Observable<void> {
+    return this.peopleService.remove(params.id);
   }
 }

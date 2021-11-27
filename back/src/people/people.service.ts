@@ -1,4 +1,4 @@
-import {Injectable, NotFoundException, UnprocessableEntityException} from '@nestjs/common';
+import {ConflictException, Injectable, NotFoundException, UnprocessableEntityException} from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import {catchError, defaultIfEmpty, filter, map, mergeMap, Observable, of, throwError} from "rxjs";
@@ -12,9 +12,21 @@ export class PeopleService {
   constructor(private readonly _peopleDao: PeopleDao) {
   }
 
-  create(createPersonDto: CreatePersonDto) {
-    return 'This action adds a new person';
-  }
+  create =  (createPersonDto: CreatePersonDto) : Observable<PersonEntity> =>
+    this._peopleDao.save(createPersonDto).pipe(
+        catchError((e) =>
+            e.code === 1100
+            ? throwError(
+                    //TODO: verifier les erreurs
+                    () => new ConflictException(
+                        `People with pseudo '${createPersonDto.pseudo}' or mail '${createPersonDto.mail} already exists`,
+                    ),
+                )
+            : throwError(() => new UnprocessableEntityException(e.message)),
+        ),
+        map((_:Person) => new PersonEntity(_))
+    );
+
 
   findAll = (): Observable<PersonEntity[] | void> =>
     this._peopleDao.find().pipe(
@@ -38,11 +50,38 @@ export class PeopleService {
           ),
   );
 
-  update(id: number, updatePersonDto: UpdatePersonDto) {
-    return `This action updates a #${id} person`;
-  }
+  update = (id: string, updatePersonDto: UpdatePersonDto) : Observable<PersonEntity> =>
+      this._peopleDao.findByIdAndUpdate(id, updatePersonDto).pipe(
+          catchError((e) =>
+              e.code === 1100
+                  ? throwError(
+                      //TODO: verifier les erreurs
+                      () => new ConflictException(
+                          `People with pseudo '${updatePersonDto.pseudo}' or mail '${updatePersonDto.mail} already exists`,
+                      ),
+                  )
+                  : throwError(() => new UnprocessableEntityException(e.message)),
+          ),
+          mergeMap((_: Person) =>
+              !!_
+                ? of(new PersonEntity(_))
+                : throwError(
+                      () => new NotFoundException(`People with id '${id}' not found`),
+                  ),
+          ),
+      );
 
-  remove(id: number) {
-    return `This action removes a #${id} person`;
-  }
+  remove = (id: string): Observable<void> =>
+      this._peopleDao.findByIdAndRemove(id).pipe(
+          catchError((e) =>
+              throwError(() => new UnprocessableEntityException(e.message)),
+          ),
+          mergeMap((_:Person) =>
+              !!_
+                  ? of(undefined)
+                  : throwError(
+                      () => new NotFoundException(`Person with id '${id}' not found`),
+                  ),
+          ),
+      );
 }
