@@ -3,23 +3,6 @@ import {IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength} from "clas
 
 
 export class CreatePersonDto {
-    @ApiProperty({
-        name: 'firstname',
-        description: "Firstname",
-        example: "Jean"
-    })
-    @IsString()
-    @IsNotEmpty()
-    firstname: string;
-
-    @ApiProperty({
-        name: 'lastname',
-        description: "Lastname",
-        example: "Durand"
-    })
-    @IsString()
-    @IsNotEmpty()
-    lastname: string;
 
     @ApiProperty({
         name: 'pseudo',

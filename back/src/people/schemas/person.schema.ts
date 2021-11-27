@@ -26,22 +26,6 @@ export class Person {
         minlength: 2,
         trim: true,
     })
-    firstname: string;
-
-    @Prop({
-        type: String,
-        required: true,
-        minlength: 2,
-        trim: true,
-    })
-    lastname: string;
-
-    @Prop({
-        type: String,
-        required: true,
-        minlength: 2,
-        trim: true,
-    })
     pseudo: string;
 
     @Prop({

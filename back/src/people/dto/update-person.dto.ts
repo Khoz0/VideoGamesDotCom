@@ -3,23 +3,6 @@ import { CreatePersonDto } from './create-person.dto';
 import {IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength} from "class-validator";
 
 export class UpdatePersonDto extends PartialType(CreatePersonDto) {
-    @ApiProperty({
-        name: 'firstname',
-        description: "Firstname",
-        example: "Jean"
-    })
-    @IsString()
-    @IsNotEmpty()
-    firstname: string;
-
-    @ApiProperty({
-        name: 'lastname',
-        description: "Lastname",
-        example: "Durand"
-    })
-    @IsString()
-    @IsNotEmpty()
-    lastname: string;
 
     @ApiProperty({
         name: 'pseudo',
