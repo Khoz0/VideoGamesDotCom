@@ -78,15 +78,16 @@ export class PostComponent implements OnInit {
     this._form.markAsUntouched()
     this._form.updateValueAndValidity()
     this.postHide()
-    var date = new Date().toLocaleDateString("fr")
+    const date = new Date().toLocaleDateString("fr");
     let post: Post
     post = {
-      id : String(this._posts.length),
+      id : String(this._posts.length+1),
       idDiscussion: this._id,
       author: "Khozo",
       text: message,
       creationDate: date
     }
     this._posts.push(post)
+    // TODO: une fois le back fait il faut update les réponses de la discussion accessible via l'idDiscussion 'this._id'
   }
 }
