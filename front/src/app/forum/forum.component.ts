@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Discussion} from "../shared/types/discussion.type";
 import {DISCUSSIONS} from "../data/discussions";
+import {DiscussionsService} from "../shared/services/discussions.service";
 
 @Component({
   selector: 'app-forum',
@@ -9,23 +10,14 @@ import {DISCUSSIONS} from "../data/discussions";
 })
 export class ForumComponent implements OnInit {
 
-  private _changeText: boolean;
   private _discussions: Discussion[];
 
-  constructor() {
-    this._discussions = DISCUSSIONS;
-    this._changeText = false;
+  constructor(private _discussionsService: DiscussionsService) {
+    this._discussions = [] as Discussion[];
   }
 
   ngOnInit(): void {
-  }
-
-  get changeText(): boolean {
-    return this._changeText;
-  }
-
-  set changeText(value: boolean) {
-    this._changeText = value;
+    this._discussions = this._discussionsService.getDiscussions()
   }
 
   get discussions(): Discussion[] {

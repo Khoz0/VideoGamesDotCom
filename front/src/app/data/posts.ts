@@ -27,6 +27,13 @@ export const POSTS =
       author: "Khozo",
       text: "Fine thanks",
       creationDate: "26/11/2021",
+    },
+    {
+      id: "5",
+      idDiscussion: "2",
+      author: "Khozo",
+      text: "Good bye",
+      creationDate: "27/11/2021",
     }
   ];
 

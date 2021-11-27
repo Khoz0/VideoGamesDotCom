@@ -12,7 +12,7 @@ export const DISCUSSIONS =
       title: "Deuxieme discussion",
       creationDate: "22/11/2021",
       author: "Dextlight",
-      responses: 2
+      responses: 3
     }
   ];
 

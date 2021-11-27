@@ -1,25 +1,10 @@
-<div class="container">
-  <div class="row" style="margin-top: 5vh" *ngFor="let discussion of discussions">
-    <mat-card class="col-md-2">
-      <mat-card-title>
-        {{discussion.creationDate}}
-      </mat-card-title>
-    </mat-card>
-    <mat-card class="col-md-8" [routerLink]="'/discussion'" (mouseover)="changeText=true" (mouseout)="changeText=false">
-      <mat-card-title-group class="align-content-center">
-        <!-- TODO : corriger le changeText pour ne pas qu'il se propage à tous -->
-        <mat-card-title *ngIf="changeText" style="color: cornflowerblue">
-          {{discussion.title}}
-        </mat-card-title>
-        <mat-card-title *ngIf="!changeText" style="color: black">
-          {{discussion.title}}
-        </mat-card-title>
-      </mat-card-title-group>
-    </mat-card>
-    <mat-card class="col-md-2">
-      <mat-card-title>
-        {{discussion.responses}}
-      </mat-card-title>
-    </mat-card>
+<div class="row" style="margin-bottom: 5vh; margin-top: 5vh; text-align: center">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <button mat-stroked-button >Créer une discussion</button>
   </div>
+  <div class="col-md-4"></div>
+</div>
+<div *ngFor="let discussion of discussions">
+  <app-discussion [currentDiscussion] = discussion></app-discussion>
 </div>

@@ -1,1 +1,47 @@
-<p>post works!</p>
+<div class="container">
+  <div  *ngFor="let post of posts">
+    <div class="row">
+      <mat-card class="col-md-2" *ngIf="post.idDiscussion === id">
+        <mat-card-title>
+          <p style="color: dodgerblue"> {{post.author}}</p>
+        </mat-card-title>
+        <mat-card-content>
+          le
+          {{post.creationDate}}
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="col-md-10" *ngIf="post.idDiscussion === id">
+          <mat-card-content>
+            {{post.text}}
+          </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row" style="text-align: center">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <button mat-stroked-button style="text-align: center; margin-top: 5vh" (click)="postHide()">Répondre</button>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+  <div class="row" *ngIf="!postHided">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form [formGroup]="form">
+          <div style="text-align: center; margin-top: 5vh">
+            <mat-form-field appearance="outline" style="width: 80vh">
+              <textarea name="message" matInput placeholder="I'm not gonna be toxic here ! :•)" formControlName="message" minlength="1" required></textarea>
+              <mat-error *ngIf="form.get('message')?.hasError('required')">
+                Le champs est <strong>Obligatoire</strong>
+              </mat-error>
+              <mat-error *ngIf="form.get('message')?.hasError('minlength')">
+                Le champs doit mesurer <strong>1 caractères minimum</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <button mat-stroked-button type="submit" (click)="postMessage(form.value.message)" style="margin-right: 2vh" class="button">Poster</button>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
