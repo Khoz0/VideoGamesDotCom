@@ -42,7 +42,7 @@ export class CreatePersonDto {
     @ApiProperty({
         name: 'password',
         description: "password",
-        example: ""
+        example: "Test123Test"
     })
     @IsString()
     @MinLength(4)

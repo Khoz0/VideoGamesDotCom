@@ -5,6 +5,7 @@ import {catchError, defaultIfEmpty, filter, map, mergeMap, Observable, of, throw
 import {PersonEntity} from "./entities/person.entity";
 import {PeopleDao} from "./dao/people.dao";
 import {Person} from "./schemas/person.schema";
+import {log} from "util";
 
 @Injectable()
 export class PeopleService {
@@ -16,13 +17,12 @@ export class PeopleService {
     this._peopleDao.save(createPersonDto).pipe(
         catchError((e) =>
             e.code === 1100
-            ? throwError(
-                    //TODO: verifier les erreurs
-                    () => new ConflictException(
-                        `People with pseudo '${createPersonDto.pseudo}' or mail '${createPersonDto.mail} already exists`,
-                    ),
+            ? throwError(() => new UnprocessableEntityException(e.message))
+            : throwError(
+                () => new ConflictException(
+                    `People with pseudo '${createPersonDto.pseudo}' or mail '${createPersonDto.mail}' already exists`,
                 )
-            : throwError(() => new UnprocessableEntityException(e.message)),
+            )
         ),
         map((_:Person) => new PersonEntity(_))
     );
@@ -54,13 +54,12 @@ export class PeopleService {
       this._peopleDao.findByIdAndUpdate(id, updatePersonDto).pipe(
           catchError((e) =>
               e.code === 1100
-                  ? throwError(
-                      //TODO: verifier les erreurs
+                  ? throwError(() => new UnprocessableEntityException(e.message))
+                  : throwError(
                       () => new ConflictException(
-                          `People with pseudo '${updatePersonDto.pseudo}' or mail '${updatePersonDto.mail} already exists`,
-                      ),
+                          `People with pseudo '${updatePersonDto.pseudo}' or mail '${updatePersonDto.mail}' already exists`,
+                      )
                   )
-                  : throwError(() => new UnprocessableEntityException(e.message)),
           ),
           mergeMap((_: Person) =>
               !!_

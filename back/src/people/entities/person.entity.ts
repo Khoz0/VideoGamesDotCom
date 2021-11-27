@@ -29,7 +29,8 @@ export class PersonEntity {
     @Type(() => String)
     mail: string;
 
-    @ApiProperty({name: 'password', description: 'Password', example: ''})
+    @ApiProperty({name: 'password', description: 'Password', example: 'Test123Test'})
+    @Exclude()
     @Type(() => String)
     password: string;
 

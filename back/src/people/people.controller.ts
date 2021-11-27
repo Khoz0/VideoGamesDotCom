@@ -13,7 +13,15 @@ import {
 import { PeopleService } from './people.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
-import {ApiBody, ApiNoContentResponse, ApiOkResponse, ApiParam, ApiTags} from "@nestjs/swagger";
+import {
+  ApiBadRequestResponse,
+  ApiBody, ApiConflictResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiParam,
+  ApiTags, ApiUnprocessableEntityResponse
+} from "@nestjs/swagger";
 import {PersonEntity} from "./entities/person.entity";
 import {Observable} from "rxjs";
 import {HttpInterceptor} from "../interceptors/http.interceptor";
@@ -30,6 +38,18 @@ export class PeopleController {
   @ApiOkResponse({
     description: 'The person has been successfully created',
     type: PersonEntity,
+  })
+  @ApiNotFoundResponse({
+    description: 'The person with the given id doesn\'t exist in the database'
+  })
+  @ApiConflictResponse({
+    description: 'The pseudo or mail exists in the database'
+  })
+  @ApiBadRequestResponse({
+    description: 'The paramater/playload provided is not good'
+  })
+  @ApiUnprocessableEntityResponse({
+    description: 'The request can\'t be performed in the database'
   })
   @ApiBody({
     description: 'Payload to create new person',
@@ -55,6 +75,15 @@ export class PeopleController {
     description: 'Return the person for the given "id"',
     type: PersonEntity,
   })
+  @ApiNotFoundResponse({
+    description: 'The person with the given id doesn\'t exist in the database'
+  })
+  @ApiBadRequestResponse({
+    description: 'The paramater provided is not good'
+  })
+  @ApiUnprocessableEntityResponse({
+    description: 'The request can\'t be performed in the database'
+  })
   @ApiParam({
     name: 'id',
     description: 'Unique identifier of the person in the database',
@@ -69,6 +98,18 @@ export class PeopleController {
   @ApiOkResponse({
     description: 'The person has been successfully updated',
     type: PersonEntity,
+  })
+  @ApiNotFoundResponse({
+    description: 'The person with the given id doesn\'t exist in the database'
+  })
+  @ApiConflictResponse({
+    description: 'The pseudo or mail exists in the database'
+  })
+  @ApiBadRequestResponse({
+    description: 'The paramater/playload provided is not good'
+  })
+  @ApiUnprocessableEntityResponse({
+    description: 'The request can\'t be performed in the database'
   })
   @ApiParam({
     name: 'id',
@@ -85,8 +126,17 @@ export class PeopleController {
     return this.peopleService.update(params.id, updatePersonDto);
   }
 
-  @ApiOkResponse({
-    description: 'The person has been successfully deleted',
+  @ApiNoContentResponse({
+    description: 'The person has been sucessfuly deleted',
+  })
+  @ApiNotFoundResponse({
+    description: 'The person with the given id doesn\'t exist in the database'
+  })
+  @ApiBadRequestResponse({
+    description: 'The paramater provided is not good'
+  })
+  @ApiUnprocessableEntityResponse({
+    description: 'The request can\'t be performed in the database'
   })
   @ApiParam({
     name: 'id',
