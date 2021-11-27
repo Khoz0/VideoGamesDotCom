@@ -5,20 +5,33 @@
         Connexion à votre compte
       </mat-card-title>
     </mat-card-content>
-    <form>
+    <form [formGroup]="form">
       <div style="text-align: center">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" style="width: 30vh">
           <mat-label>Pseudo</mat-label>
-          <input matInput placeholder="Placeholder">
+          <input name="pseudo" matInput placeholder="Placeholder" formControlName="pseudo" minlength="2" required>
+          <mat-error *ngIf="form.get('pseudo')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('pseudo')?.hasError('minlength')">
+            Le champs doit mesurer <strong>2 caractères minimum</strong>
+          </mat-error>
         </mat-form-field>
       </div>
-      <div style="text-align: center">
-        <mat-form-field appearance="outline">
+      <br>
+      <div style="text-align: center; margin-bottom: 2vh">
+        <mat-form-field appearance="outline" style="width: 30vh">
           <mat-label>Mot de passe</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'">
+          <input name="password" matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          <mat-error *ngIf="form.get('password')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('password')?.hasError('minlength')">
+            Le champs doit mesurer <strong>8 caractères minimum</strong>
+          </mat-error>
         </mat-form-field>
       </div>
       <button mat-flat-button>Connexion</button>
