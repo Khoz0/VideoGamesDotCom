@@ -44,6 +44,11 @@ export class AuthentificationService{
 
   }
 
+  getPersonPseudo() : string {
+    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").person.pseudo;
+
+  }
+
   getPersonMail() : string {
     return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").person.mail;
 
