@@ -1,1 +1,36 @@
-<p>forum works!</p>
+<div class="row" style="margin-bottom: 5vh; margin-top: 5vh; text-align: center">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <button mat-stroked-button (click)="openDiscussion()">Créer une discussion</button>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+
+<div class="row" *ngIf="!discussionHided">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <form [formGroup]="form">
+      <div style="text-align: center; margin-top: 5vh">
+        <mat-form-field appearance="outline" style="width: 80vh">
+          <mat-label>Titre de la discussion</mat-label>
+          <input name="title" matInput placeholder="Mon meilleur titre ! :•)" formControlName="title" minlength="1" required>
+          <mat-error *ngIf="form.get('title')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('title')?.hasError('minlength')">
+            Le champs doit mesurer <strong>1 caractères minimum</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div style="text-align: center">
+        <button mat-stroked-button type="submit" (click)="createDiscussion(form.value.title)">Poster</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+<div *ngFor="let discussion of discussions">
+  <p>{{discussion.id}}</p>
+  <app-discussion [currentDiscussion] = discussion></app-discussion>
+</div>

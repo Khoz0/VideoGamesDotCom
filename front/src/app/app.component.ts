@@ -9,6 +9,7 @@ import {AuthentificationService} from "./shared/services/authentification-servic
 export class AppComponent {
 
   private _title = 'VideoGamesDotCom';
+  private _isAdmin = false;
   private _lightTheme = true;
   private _isDark = false;
 
@@ -32,6 +33,14 @@ export class AppComponent {
     return this._authService.isAuthenticated();
   }
 
+  get isAdmin(): boolean {
+    return this._isAdmin;
+  }
+
+  set isAdmin(value: boolean) {
+    this._isAdmin = value;
+  }
+
   get lightTheme(): boolean {
     return this._lightTheme;
   }
@@ -43,9 +52,10 @@ export class AppComponent {
   deconnexion() {
     this._authService.logout();
     this.isConnected
+    this.isAdmin = false;
   }
 
   connexion() {
-    //this.isConnected = true;
+    this.isAdmin = true;
   }
 }

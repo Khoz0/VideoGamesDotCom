@@ -24,6 +24,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {JWT_OPTIONS, JwtHelperService, JwtInterceptor, JwtModule} from "@auth0/angular-jwt";
 import {HttpInterceptor} from "../../../back/src/interceptors/http.interceptor";
+import { DiscussionComponent } from './shared/discussion/discussion.component';
+import { PostComponent } from './shared/post/post.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import {HttpInterceptor} from "../../../back/src/interceptors/http.interceptor";
     ForumComponent,
     TestsComponent,
     ActualitesComponent,
-    DeconnexionComponent
+    DeconnexionComponent,
+    DiscussionComponent,
+    PostComponent
   ],
     imports: [
         BrowserModule,

@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row" style="margin-top: 5vh">
+    <mat-card class="col-md-2">
+      <mat-card-title>
+        {{currentDiscussion.creationDate}}
+      </mat-card-title>
+    </mat-card>
+    <mat-card class="col-md-8" [routerLink]="['/post', currentDiscussion.id]" (mouseover)="changeText=true" (mouseout)="changeText=false">
+      <mat-card-title-group class="align-content-center">
+        <mat-card-title *ngIf="changeText" style="color: cornflowerblue">
+          {{currentDiscussion.title}}
+        </mat-card-title>
+        <mat-card-title *ngIf="!changeText" style="color: black">
+          {{currentDiscussion.title}}
+        </mat-card-title>
+      </mat-card-title-group>
+    </mat-card>
+    <mat-card class="col-md-1" >
+      <mat-card-title style="text-align: center">
+        {{currentDiscussion.responses}}
+      </mat-card-title>
+    </mat-card>
+    <div class="col-md-1" style="display: inline-block;align-self: center;">
+      <!-- TODO: Récupérer le user token pour savoir s'il est admin -->
+      <mat-icon (click)="deleteDiscussion()">
+        delete
+      </mat-icon>
+    </div>
+  </div>
+</div>
