@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "./custom-validators";
 import {catchError, map} from "rxjs/operators";
-import {AuthentificationService} from "../shared/services/authentification-service";
+import {AuthentificationService} from "../shared/services/authentification.service";
 import {Router} from "@angular/router";
 import {throwError} from "rxjs";
 
@@ -31,6 +31,9 @@ export class InscriptionComponent implements OnInit {
       ])),
       password: new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(8)
+      ])),
+      role: new FormControl('User', Validators.compose([
+        Validators.required, Validators.minLength(4)
       ])),
       repeatPassword: new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(8), CustomValidators.mustMatch

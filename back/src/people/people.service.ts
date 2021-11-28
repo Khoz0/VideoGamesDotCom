@@ -22,7 +22,7 @@ import { PersonEntity } from './entities/person.entity';
 import { PeopleDao } from './dao/people.dao';
 import { Person } from './schemas/person.schema';
 import { AuthService } from '../auth/auth.service';
-import {LoginPersonDto} from "./dto/login-person.dto";
+import { LoginPersonDto } from './dto/login-person.dto';
 
 @Injectable()
 export class PeopleService {
@@ -39,13 +39,13 @@ export class PeopleService {
         return this._peopleDao.save(createPersonDto).pipe(
           catchError((e) =>
             e.code === 1100
-              ? throwError(() => new UnprocessableEntityException(e.message))
-              : throwError(
+              ? throwError(
                   () =>
                     new ConflictException(
                       `People with pseudo '${createPersonDto.pseudo}' or mail '${createPersonDto.mail}' already exists`,
                     ),
-                ),
+                )
+              : throwError(() => new UnprocessableEntityException(e.message)),
           ),
           map((_: Person) => new PersonEntity(_)),
         );
@@ -132,12 +132,12 @@ export class PeopleService {
     this.validateUser(person.pseudo, person.password).pipe(
       switchMap((_: Person) => {
         if (_) {
-            console.log("login service");
+          console.log('login service');
           return this._authService
             .generateJWT(_)
             .pipe(map((jwt: string) => jwt));
         } else {
-            console.log("error");
+          console.log('error');
           return 'Wrong credential';
         }
       }),
@@ -149,6 +149,7 @@ export class PeopleService {
         this._authService.comparePasswords(password, _.password).pipe(
           map((match: boolean) => {
             if (match) {
+
               return _;
             } else {
               throw Error;

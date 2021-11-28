@@ -1,5 +1,5 @@
 import {Component, HostBinding} from '@angular/core';
-import {AuthentificationService} from "./shared/services/authentification-service";
+import {AuthentificationService} from "./shared/services/authentification.service";
 
 @Component({
   selector: 'app-root',

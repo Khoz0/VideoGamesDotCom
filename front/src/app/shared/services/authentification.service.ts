@@ -4,13 +4,14 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import jwtDecode from "jwt-decode";
 import {catchError, map, tap} from "rxjs/operators";
 import {PersonModel} from "../model/person.model.";
-import {throwError} from "rxjs";
 
 
 export interface LoginForm {
   pseudo: string;
   password: string;
 }
+
+
 
 export const JWT_NAME = 'person_token';
 
@@ -19,7 +20,9 @@ export const JWT_NAME = 'person_token';
 })
 export class AuthentificationService{
 
+
   constructor(private _http: HttpClient, private _jwtHelper: JwtHelperService) {
+
   }
 
   login(loginForm: LoginForm) {
@@ -28,23 +31,29 @@ export class AuthentificationService{
          localStorage.setItem(JWT_NAME, token)
          return token;
        })
-
-     /*
-     .pipe(
-      map((token) => {
-        console.log("TEST")
-        console.log('token');
-        localStorage.setItem(JWT_NAME, token.access_token)
-        return token;
-      })
-    ) */)
+    )
   }
 
 
-  getPersonId() {
-    var test = localStorage.getItem(JWT_NAME) + "";
-    var token = jwtDecode(test)
-    console.log(token)
+  getPersonId() : string {
+    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").pipe(
+      map((_: any) => _.person.id)
+    )
+
+  }
+
+  getPersonRole() : string {
+    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").pipe(
+      map((_: any) => _.person.role)
+    )
+
+  }
+
+  getPersonMail() : string {
+    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").pipe(
+      map((_: any) => _.person.mail)
+    )
+
   }
 
   register(person: PersonModel) {

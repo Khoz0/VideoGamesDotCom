@@ -3,4 +3,5 @@ export interface Person {
   pseudo?: string;
   mail?: string;
   password?: string;
+  role?: string;
 }
