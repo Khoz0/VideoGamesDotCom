@@ -15,10 +15,16 @@
         </mat-card-title>
       </mat-card-title-group>
     </mat-card>
-    <mat-card class="col-md-2">
-      <mat-card-title>
+    <mat-card class="col-md-1" >
+      <mat-card-title style="text-align: center">
         {{currentDiscussion.responses}}
       </mat-card-title>
     </mat-card>
+    <div class="col-md-1" style="display: inline-block;align-self: center;">
+      <!-- TODO: Récupérer le user token pour savoir s'il est admin -->
+      <mat-icon (click)="deleteDiscussion()">
+        delete
+      </mat-icon>
+    </div>
   </div>
 </div>

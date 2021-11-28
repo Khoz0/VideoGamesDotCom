@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" style="margin-top: 5vh">
   <div  *ngFor="let post of posts">
     <div class="row">
-      <mat-card class="col-md-2" *ngIf="post.idDiscussion === id">
+      <mat-card  class="col-md-2" *ngIf="post.idDiscussion === id">
         <mat-card-title>
           <p style="color: dodgerblue"> {{post.author}}</p>
         </mat-card-title>
@@ -10,11 +10,17 @@
           {{post.creationDate}}
         </mat-card-content>
       </mat-card>
-      <mat-card class="col-md-10" *ngIf="post.idDiscussion === id">
+      <mat-card class="col-md-9" *ngIf="post.idDiscussion === id">
           <mat-card-content>
             {{post.text}}
           </mat-card-content>
       </mat-card>
+      <div class="col-md-1" style="display: inline-block;align-self: center;"  *ngIf="post.idDiscussion === id">
+        <!-- TODO : Récupérer le user token pour savoir s'il est admin -->
+        <mat-icon (click)="deletePost(post.id)">
+          delete
+        </mat-icon>
+      </div>
     </div>
   </div>
   <div class="row" style="text-align: center">
@@ -39,7 +45,9 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <button mat-stroked-button type="submit" (click)="postMessage(form.value.message)" style="margin-right: 2vh" class="button">Poster</button>
+          <div style="text-align: center">
+            <button mat-stroked-button type="submit" (click)="postMessage(form.value.message)">Poster</button>
+          </div>
         </form>
     </div>
     <div class="col-md-2"></div>

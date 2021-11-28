@@ -90,4 +90,9 @@ export class PostComponent implements OnInit {
     this._posts.push(post)
     // TODO: une fois le back fait il faut update les réponses de la discussion accessible via l'idDiscussion 'this._id'
   }
+
+  deletePost(idPost: string | undefined) {
+    POSTS.splice(POSTS.findIndex(post => post.id === idPost), 1)
+
+  }
 }

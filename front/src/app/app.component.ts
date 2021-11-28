@@ -9,6 +9,7 @@ export class AppComponent {
 
   private _title = 'VideoGamesDotCom';
   private _isConnected = false;
+  private _isAdmin = false;
   private _lightTheme = true;
   private _isDark = false;
 
@@ -33,6 +34,14 @@ export class AppComponent {
     this._isConnected = value;
   }
 
+  get isAdmin(): boolean {
+    return this._isAdmin;
+  }
+
+  set isAdmin(value: boolean) {
+    this._isAdmin = value;
+  }
+
   get lightTheme(): boolean {
     return this._lightTheme;
   }
@@ -43,9 +52,11 @@ export class AppComponent {
 
   deconnexion() {
     this.isConnected = false;
+    this.isAdmin = false;
   }
 
   connexion() {
     this.isConnected = true;
+    this.isAdmin = true;
   }
 }
