@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
-import jwtDecode from "jwt-decode";
 import {catchError, map, tap} from "rxjs/operators";
 import {PersonModel} from "../model/person.model.";
 
@@ -36,23 +35,17 @@ export class AuthentificationService{
 
 
   getPersonId() : string {
-    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").pipe(
-      map((_: any) => _.person.id)
-    )
-
+    return this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").person.id;
   }
 
   getPersonRole() : string {
-    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").pipe(
-      map((_: any) => _.person.role)
-    )
+    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").person.role;
+
 
   }
 
   getPersonMail() : string {
-    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").pipe(
-      map((_: any) => _.person.mail)
-    )
+    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").person.mail;
 
   }
 

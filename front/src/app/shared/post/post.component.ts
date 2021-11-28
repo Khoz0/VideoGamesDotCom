@@ -5,6 +5,7 @@ import {Discussion} from "../types/discussion.type";
 import {ActivatedRoute} from "@angular/router";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
+import {AuthentificationService} from "../services/authentification.service";
 
 @Component({
   selector: 'app-post',
@@ -17,8 +18,10 @@ export class PostComponent implements OnInit {
   private _posts: Post[];
   private _postHided: boolean;
   private _form: FormGroup
+  private _admin: boolean;
 
-  constructor(private _activatedRoute:ActivatedRoute) {
+  constructor(private _activatedRoute:ActivatedRoute, private _authService: AuthentificationService) {
+    this._admin = false;
     this._posts = POSTS;
     this._postHided = true
     this._form = new FormGroup({
@@ -45,6 +48,10 @@ export class PostComponent implements OnInit {
 
   get id(): string {
     return this._id;
+  }
+
+  get admin(): boolean {
+    return this._authService.getPersonRole() === "Admin";
   }
 
   set id(value: string) {

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Discussion} from "../types/discussion.type";
 import {DISCUSSIONS} from "../../data/discussions";
 import {POSTS} from "../../data/posts";
+import {AuthentificationService} from "../services/authentification.service";
 
 @Component({
   selector: 'app-discussion',
@@ -12,8 +13,10 @@ export class DiscussionComponent implements OnInit {
 
   private _changeText: boolean;
   private _currentDiscussion: Discussion;
+  private _admin: boolean;
 
-  constructor() {
+  constructor(private _authService: AuthentificationService) {
+    this._admin = false;
     this._changeText = false;
     this._currentDiscussion = {} as Discussion;
   }
@@ -28,6 +31,10 @@ export class DiscussionComponent implements OnInit {
   @Input()
   set currentDiscussion(value: Discussion) {
     this._currentDiscussion = value;
+  }
+
+  get admin(): boolean {
+    return this._authService.getPersonRole() == "Admin";
   }
 
   get changeText(): boolean {
