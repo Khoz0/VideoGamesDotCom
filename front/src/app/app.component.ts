@@ -1,4 +1,5 @@
 import {Component, HostBinding} from '@angular/core';
+import {AuthentificationService} from "./shared/services/authentification-service";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,11 @@ import {Component, HostBinding} from '@angular/core';
 export class AppComponent {
 
   private _title = 'VideoGamesDotCom';
-  private _isConnected = false;
   private _lightTheme = true;
   private _isDark = false;
+
+  constructor(private _authService: AuthentificationService) {
+  }
 
   @HostBinding('class')
   get themeMode(){
@@ -26,11 +29,7 @@ export class AppComponent {
   }
 
   get isConnected(): boolean {
-    return this._isConnected;
-  }
-
-  set isConnected(value: boolean) {
-    this._isConnected = value;
+    return this._authService.isAuthenticated();
   }
 
   get lightTheme(): boolean {
@@ -42,10 +41,11 @@ export class AppComponent {
   }
 
   deconnexion() {
-    this.isConnected = false;
+    this._authService.logout();
+    this.isConnected
   }
 
   connexion() {
-    this.isConnected = true;
+    //this.isConnected = true;
   }
 }

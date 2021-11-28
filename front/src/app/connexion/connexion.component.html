@@ -5,6 +5,9 @@
         Connexion à votre compte
       </mat-card-title>
     </mat-card-content>
+    <mat-error *ngIf="err">
+      Mot de passe ou pseudo  <strong> incorrecte</strong>
+    </mat-error>
     <form [formGroup]="form">
       <div style="text-align: center">
         <mat-form-field appearance="outline" style="width: 30vh">
@@ -34,7 +37,7 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <button mat-flat-button>Connexion</button>
+      <button mat-flat-button (click)="submit()">Connexion</button>
       <button mat-flat-button [routerLink]="'/demande-mdp'">Mot de passe oublié ?</button>
     </form>
   </mat-card>

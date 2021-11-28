@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "./custom-validators";
+import {catchError, map} from "rxjs/operators";
+import {AuthentificationService} from "../shared/services/authentification-service";
+import {Router} from "@angular/router";
+import {throwError} from "rxjs";
 
 @Component({
   selector: 'app-inscription',
@@ -12,15 +16,17 @@ export class InscriptionComponent implements OnInit {
   private _hide: boolean;
   private _hideRepeat: boolean;
   private _form: FormGroup;
+  private _err: boolean
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private _authService: AuthentificationService, private _route: Router) {
+    this._err = false;
     this._hide = true;
     this._hideRepeat = true;
     this._form = new FormGroup({
       pseudo: new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(2)
       ])),
-      email: new FormControl('', Validators.compose([
+      mail: new FormControl('', Validators.compose([
         Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}")
       ])),
       password: new FormControl('', Validators.compose([
@@ -56,7 +62,28 @@ export class InscriptionComponent implements OnInit {
     this._form = value;
   }
 
+  get err() {
+    return this._err;
+  }
+
   ngOnInit(): void {
+  }
+
+  submit() {
+    if(this.form.invalid) {
+      return;
+    }
+    this.form.removeControl("repeatPassword");
+    this._authService.register(this.form.value).pipe(
+      map(token => this._route.navigate(['/connexion'])),
+      catchError( (e)  => {
+        this._err = true;
+        this._form.addControl('repeatPassword', new FormControl('', Validators.compose([
+          Validators.required, Validators.minLength(8), CustomValidators.mustMatch
+        ])))
+        return throwError(e);
+      })
+    ).subscribe()
   }
 
 }

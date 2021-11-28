@@ -5,6 +5,9 @@
         Création de votre compte
       </mat-card-title>
     </mat-card-content>
+    <mat-error *ngIf="err">
+      Le pseudo ou/et l'email  <strong>existe déja</strong>
+    </mat-error>
     <form [formGroup]="form">
       <div style="text-align: center; margin-bottom: 2vh">
         <mat-form-field appearance="outline" style="width: 30vh">
@@ -21,11 +24,11 @@
       <div style="text-align: center; margin-bottom: 2vh">
         <mat-form-field appearance="outline" style="width: 30vh">
           <mat-label>Mail</mat-label>
-          <input name="email" matInput placeholder="Placeholder" formControlName="email" required>
-          <mat-error *ngIf="form.get('email')?.hasError('required')">
+          <input name="mail" matInput placeholder="Placeholder" formControlName="mail" required>
+          <mat-error *ngIf="form.get('mail')?.hasError('required')">
             Le champs est <strong>Obligatoire</strong>
           </mat-error>
-          <mat-error *ngIf="!form.get('email')?.hasError('required') && form.get('email')?.hasError('pattern')">
+          <mat-error *ngIf="!form.get('mail')?.hasError('required') && form.get('mail')?.hasError('pattern')">
             Email invalide <strong>(ex: name.firstname@mailBox.com)</strong>
           </mat-error>
         </mat-form-field>
@@ -63,7 +66,7 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <button mat-flat-button class="button">Inscription</button>
+      <button mat-flat-button class="button" (click)="submit()">Inscription</button>
     </form>
   </mat-card>
 </div>

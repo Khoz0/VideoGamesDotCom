@@ -21,6 +21,9 @@ import { TestsComponent } from './tests/tests.component';
 import { ActualitesComponent } from './actualites/actualites.component';
 import { DeconnexionComponent } from './deconnexion/deconnexion.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {JWT_OPTIONS, JwtHelperService, JwtInterceptor, JwtModule} from "@auth0/angular-jwt";
+import {HttpInterceptor} from "../../../back/src/interceptors/http.interceptor";
 
 @NgModule({
   declarations: [
@@ -46,9 +49,15 @@ import {ReactiveFormsModule} from "@angular/forms";
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule,
+        JwtModule,
     ],
-  providers: [],
+  providers: [JwtHelperService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS}, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

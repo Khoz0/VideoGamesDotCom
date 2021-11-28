@@ -10,33 +10,46 @@ import {
   catchError,
   defaultIfEmpty,
   filter,
+  from,
   map,
   mergeMap,
   Observable,
   of,
+  switchMap,
   throwError,
 } from 'rxjs';
 import { PersonEntity } from './entities/person.entity';
 import { PeopleDao } from './dao/people.dao';
 import { Person } from './schemas/person.schema';
+import { AuthService } from '../auth/auth.service';
+import {LoginPersonDto} from "./dto/login-person.dto";
 
 @Injectable()
 export class PeopleService {
-  constructor(private readonly _peopleDao: PeopleDao) {}
+  constructor(
+    private readonly _peopleDao: PeopleDao,
+    private readonly _authService: AuthService,
+  ) {}
 
   create = (createPersonDto: CreatePersonDto): Observable<PersonEntity> =>
-    this._peopleDao.save(createPersonDto).pipe(
-      catchError((e) =>
-        e.code === 1100
-          ? throwError(() => new UnprocessableEntityException(e.message))
-          : throwError(
-              () =>
-                new ConflictException(
-                  `People with pseudo '${createPersonDto.pseudo}' or mail '${createPersonDto.mail}' already exists`,
+    this._authService.hashPassword(createPersonDto.password).pipe(
+      switchMap((passwordHash: string) => {
+        createPersonDto.password = passwordHash;
+
+        return this._peopleDao.save(createPersonDto).pipe(
+          catchError((e) =>
+            e.code === 1100
+              ? throwError(() => new UnprocessableEntityException(e.message))
+              : throwError(
+                  () =>
+                    new ConflictException(
+                      `People with pseudo '${createPersonDto.pseudo}' or mail '${createPersonDto.mail}' already exists`,
+                    ),
                 ),
-            ),
-      ),
-      map((_: Person) => new PersonEntity(_)),
+          ),
+          map((_: Person) => new PersonEntity(_)),
+        );
+      }),
     );
 
   findAll = (): Observable<PersonEntity[] | void> =>
@@ -114,4 +127,35 @@ export class PeopleService {
             ),
       ),
     );
+
+  login = (person: LoginPersonDto): Observable<string> =>
+    this.validateUser(person.pseudo, person.password).pipe(
+      switchMap((_: Person) => {
+        if (_) {
+            console.log("login service");
+          return this._authService
+            .generateJWT(_)
+            .pipe(map((jwt: string) => jwt));
+        } else {
+            console.log("error");
+          return 'Wrong credential';
+        }
+      }),
+    );
+
+  validateUser(pseudo: string, password: string): Observable<Person> {
+    return from(this._peopleDao.findByPseudo(pseudo)).pipe(
+      switchMap((_: Person) =>
+        this._authService.comparePasswords(password, _.password).pipe(
+          map((match: boolean) => {
+            if (match) {
+              return _;
+            } else {
+              throw Error;
+            }
+          }),
+        ),
+      ),
+    );
+  }
 }

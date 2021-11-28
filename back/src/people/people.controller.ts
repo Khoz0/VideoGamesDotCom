@@ -31,6 +31,7 @@ import {
   HandlerParams,
   HandlerParamsPseudo,
 } from './validators/handler-params';
+import { LoginPersonDto } from './dto/login-person.dto';
 
 @ApiTags('people')
 @Controller('people')
@@ -181,5 +182,24 @@ export class PeopleController {
   @Delete(':id')
   remove(@Param() params: HandlerParams): Observable<void> {
     return this.peopleService.remove(params.id);
+  }
+
+  @ApiOkResponse({
+    description: 'The person has been successfully loged',
+    type: String
+  })
+  @ApiBadRequestResponse({
+    description: 'The pseudo or the password is incorrect',
+  })
+  @ApiUnprocessableEntityResponse({
+    description: "The request can't be performed in the database",
+  })
+  @ApiBody({
+    description: 'Payload to login a person',
+    type: LoginPersonDto,
+  })
+  @Post('/login')
+  login(@Body() loginPersonDto: LoginPersonDto): Observable<any> {
+    return this.peopleService.login(loginPersonDto);
   }
 }
