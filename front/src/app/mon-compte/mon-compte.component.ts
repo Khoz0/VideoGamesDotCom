@@ -68,6 +68,10 @@ export class MonCompteComponent implements OnInit {
     return this._form;
   }
 
+  get admin(): boolean {
+    return this._authService.getPersonRole() == "Admin";
+  }
+
   set form(value: FormGroup) {
     this._form = value;
   }
@@ -91,7 +95,8 @@ export class MonCompteComponent implements OnInit {
 
   submit() {
     if ((this.form.controls['pseudo'].value !== this.person.pseudo ||
-      this.form.controls['mail'].value !== this.person.mail ) && this.person.id) {
+      this.form.controls['mail'].value !== this.person.mail || this.form.controls['role'].value !== this.person.role )
+      && this.person.id) {
         this._peopleService.update(this.person.id, this.form.value, this.form.controls['password'].value, this.form.controls["pseudo"].value).subscribe()
         this._peopleService.fetchOne(this._authService.getPersonId()).subscribe(
         {
@@ -118,6 +123,9 @@ export class MonCompteComponent implements OnInit {
       this.form.controls['mail'].enable();
       this.form.controls['mail'].setValue(this.person.mail);
       this.form.controls['role'].setValue(this.person.role);
+      if (this.admin) {
+        this.form.controls['role'].enable();
+      }
     }
   }
 
