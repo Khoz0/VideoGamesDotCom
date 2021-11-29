@@ -94,24 +94,30 @@ export class PeopleService {
     id: string,
     updatePersonDto: UpdatePersonDto,
   ): Observable<PersonEntity> =>
-    this._peopleDao.findByIdAndUpdate(id, updatePersonDto).pipe(
-      catchError((e) =>
-        e.code === 1100
-          ? throwError(() => new UnprocessableEntityException(e.message))
-          : throwError(
-              () =>
-                new ConflictException(
-                  `People with pseudo '${updatePersonDto.pseudo}' or mail '${updatePersonDto.mail}' already exists`,
+    this._authService.hashPassword(updatePersonDto.password).pipe(
+      switchMap((passwordHash: string) => {
+        updatePersonDto.password = passwordHash;
+        return this._peopleDao.findByIdAndUpdate(id, updatePersonDto).pipe(
+          catchError((e) =>
+            e.code === 1100
+              ? throwError(() => new UnprocessableEntityException(e.message))
+              : throwError(
+                  () =>
+                    new ConflictException(
+                      `People with pseudo '${updatePersonDto.pseudo}' or mail '${updatePersonDto.mail}' already exists`,
+                    ),
                 ),
-            ),
-      ),
-      mergeMap((_: Person) =>
-        !!_
-          ? of(new PersonEntity(_))
-          : throwError(
-              () => new NotFoundException(`People with id '${id}' not found`),
-            ),
-      ),
+          ),
+          mergeMap((_: Person) =>
+            !!_
+              ? of(new PersonEntity(_))
+              : throwError(
+                  () =>
+                    new NotFoundException(`People with id '${id}' not found`),
+                ),
+          ),
+        );
+      }),
     );
 
   remove = (id: string): Observable<void> =>
@@ -149,7 +155,6 @@ export class PeopleService {
         this._authService.comparePasswords(password, _.password).pipe(
           map((match: boolean) => {
             if (match) {
-
               return _;
             } else {
               throw Error;

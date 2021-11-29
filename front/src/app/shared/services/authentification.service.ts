@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {catchError, map, tap} from "rxjs/operators";
-import {PersonModel} from "../model/person.model.";
+import {PersonModel} from "../model/person.model";
 
 
 export interface LoginForm {
@@ -32,6 +32,14 @@ export class AuthentificationService{
        })
     )
   }
+  loginNoForm(pseudo: string, password: string) {
+    return this._http.post('http://0.0.0.0:3000/people/login', {pseudo: pseudo, password: password}, {responseType: 'text'}).pipe(
+      map((token) => {
+        localStorage.setItem(JWT_NAME, token)
+        return token;
+      })
+    )
+  }
 
 
   getPersonId() : string {
@@ -40,8 +48,6 @@ export class AuthentificationService{
 
   getPersonRole() : string {
     return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").person.role;
-
-
   }
 
   getPersonPseudo() : string {

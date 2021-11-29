@@ -1,1 +1,62 @@
-<p>mon-compte works!</p>
+<div class="parent">
+  <mat-card class="mat-whiteframe-2dp">
+    <mat-card-content>
+      <mat-card-title>
+        Votre compte
+      </mat-card-title>
+    </mat-card-content>
+    <mat-error *ngIf="err">
+      Le pseudo ou/et l'email  <strong>existe déja</strong>
+    </mat-error>
+    <form [formGroup]="form">
+      <div style="text-align: center; margin-bottom: 2vh">
+        <mat-form-field appearance="outline" style="width: 30vh">
+          <mat-label>Pseudo</mat-label>
+          <input name="pseudo" matInput formControlName="pseudo" minlength="2" value="{{person.pseudo}}" required>
+          <mat-error *ngIf="form.get('pseudo')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('pseudo')?.hasError('minlength')">
+            Le champs doit mesurer <strong>2 caractères minimum</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div style="text-align: center; margin-bottom: 2vh">
+        <mat-form-field appearance="outline" style="width: 30vh">
+          <mat-label>Mail</mat-label>
+          <input name="mail" matInput placeholder="Placeholder" formControlName="mail" value="{{person.mail}}"  required>
+          <mat-error *ngIf="form.get('mail')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="!form.get('mail')?.hasError('required') && form.get('mail')?.hasError('pattern')">
+            Email invalide <strong>(ex: name.firstname@mailBox.com)</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div style="text-align: center; margin-bottom: 2vh">
+        <mat-form-field appearance="outline" style="width: 30vh">
+          <mat-label>Role</mat-label>
+          <input name="text" matInput  formControlName="role" value="{{person.role}}">
+        </mat-form-field>
+      </div>
+      <div style="text-align: center; margin-bottom: 2vh" *ngIf="modify">
+        <mat-form-field appearance="outline" style="width: 30vh">
+          <mat-label>Rentrez votre mot de passe pour confirmer la modification</mat-label>
+          <input name="password" matInput [type]="hide ? 'password' : 'text'" formControlName="password" required> <!--minlength="8"-->
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('password')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('password')?.hasError('minlength')">
+            Le champs doit mesurer <strong>8 caractères minimum</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button mat-stroked-button class="button" (click)="modify = true" *ngIf="!modify">Modifier</button>
+      <button mat-stroked-button class="button" (click)="submit()" *ngIf="modify">Envoyer</button>
+    </form>
+  </mat-card>
+</div>
+
