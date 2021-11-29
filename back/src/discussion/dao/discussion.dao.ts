@@ -1,7 +1,6 @@
 import {Injectable} from "@nestjs/common";
 import {CreateDiscussionDto} from "../dto/create-discussion.dto";
 import {defaultIfEmpty, filter, from, map, Observable} from "rxjs";
-import {Person} from "../../people/schemas/person.schema";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
 import {Discussion, DiscussionDocument} from "../schemas/discussion.schema";
@@ -11,7 +10,7 @@ import {UpdateDiscussionDto} from "../dto/update-discussion.dto";
 export class DiscussionDao {
 
     constructor(
-        @InjectModel(Person.name)
+        @InjectModel(Discussion.name)
         private readonly _discussionModel: Model<DiscussionDocument>,
     ) {}
 

@@ -10,9 +10,7 @@ import {
     UseInterceptors
 } from '@nestjs/common';
 import {Observable} from "rxjs";
-import {PersonEntity} from "../people/entities/person.entity";
 import {CreateDiscussionDto} from "./dto/create-discussion.dto";
-import {PeopleService} from "../people/people.service";
 import {DiscussionService} from "./discussion.service";
 import {
     ApiBadRequestResponse, ApiBody,
@@ -24,9 +22,7 @@ import {
 } from "@nestjs/swagger";
 import {HttpInterceptor} from "../interceptors/http.interceptor";
 import {DiscussionEntity} from "./entities/discussion.entity";
-import {CreatePersonDto} from "../people/dto/create-person.dto";
 import {HandlerParams} from "../people/validators/handler-params";
-import {UpdatePersonDto} from "../people/dto/update-person.dto";
 import {UpdateDiscussionDto} from "./dto/update-discussion.dto";
 
 
@@ -100,7 +96,7 @@ export class DiscussionController {
 
     @ApiOkResponse({
         description: 'The discussion has been successfully updated',
-        type: PersonEntity,
+        type: DiscussionEntity,
     })
     @ApiNotFoundResponse({
         description: 'The discussion with the given id doesn\'t exist in the database'
@@ -122,7 +118,7 @@ export class DiscussionController {
     })
     @ApiBody({
         description: 'Payload to update a discussion',
-        type: UpdatePersonDto,
+        type: UpdateDiscussionDto,
     })
     @Put(':id')
     update(@Param() params: HandlerParams, @Body() updateDiscussionDto: UpdateDiscussionDto) {
