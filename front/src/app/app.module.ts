@@ -26,6 +26,8 @@ import {JWT_OPTIONS, JwtHelperService, JwtInterceptor, JwtModule} from "@auth0/a
 import {HttpInterceptor} from "../../../back/src/interceptors/http.interceptor";
 import { DiscussionComponent } from './shared/discussion/discussion.component';
 import { PostComponent } from './shared/post/post.component';
+import { GamesComponent } from './games/games.component';
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { PostComponent } from './shared/post/post.component';
     ActualitesComponent,
     DeconnexionComponent,
     DiscussionComponent,
-    PostComponent
+    PostComponent,
+    GamesComponent
   ],
     imports: [
         BrowserModule,
@@ -56,6 +59,7 @@ import { PostComponent } from './shared/post/post.component';
         ReactiveFormsModule,
         HttpClientModule,
         JwtModule,
+        MatGridListModule,
     ],
   providers: [JwtHelperService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS}, {
     provide: HTTP_INTERCEPTORS,
