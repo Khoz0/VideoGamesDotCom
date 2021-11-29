@@ -96,14 +96,16 @@ export class MonCompteComponent implements OnInit {
   submit() {
     if ((this.form.controls['pseudo'].value !== this.person.pseudo ||
       this.form.controls['mail'].value !== this.person.mail || this.form.controls['role'].value !== this.person.role )
-      && this.person.id) {
-        this._peopleService.update(this.person.id, this.form.value, this.form.controls['password'].value, this.form.controls["pseudo"].value).subscribe()
+      && this.person.id && this.form.valid) {
+        this._peopleService.update(this.person.id, this.form.value, this.form.controls['password'].value, this.form.controls["pseudo"].value)
+          .subscribe()
         this._peopleService.fetchOne(this._authService.getPersonId()).subscribe(
         {
           next: (person: Person) => this._person = person
         }
       )
     }
+    this.form.controls['password'].setValue("");
     this.modify = false;
   }
 

@@ -5,8 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PeopleModule } from './people/people.module';
 import { AuthModule } from './auth/auth.module';
 import * as Config from 'config';
-import { DiscussionModule } from "./discussion/discussion.module";
-
+import { DiscussionModule } from './discussion/discussion.module';
 
 @Module({
   imports: [
