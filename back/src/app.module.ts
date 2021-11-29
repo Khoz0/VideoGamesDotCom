@@ -6,6 +6,7 @@ import { PeopleModule } from './people/people.module';
 import { AuthModule } from './auth/auth.module';
 import * as Config from 'config';
 import { DiscussionModule } from './discussion/discussion.module';
+import { GamesModule } from './games/games.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { DiscussionModule } from './discussion/discussion.module';
     PeopleModule,
     AuthModule,
     DiscussionModule,
+    GamesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

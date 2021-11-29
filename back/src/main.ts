@@ -9,8 +9,13 @@ import { AppConfig, SwaggerConfig } from './app.types';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { PeopleModule } from './people/people.module';
+import { GamesModule } from './games/games.module';
 
-async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
+async function bootstrap(
+  config: AppConfig,
+  swaggerConfig: SwaggerConfig,
+  swaggerConfigGames: SwaggerConfig,
+) {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({ logger: true }),
@@ -39,9 +44,23 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
 
   SwaggerModule.setup(swaggerConfig.path, app, peopleDocument);
 
+  const secondoptions = new DocumentBuilder()
+    .setTitle(swaggerConfigGames.title)
+    .setDescription(swaggerConfigGames.description)
+    .setVersion(swaggerConfigGames.version)
+    .addTag(swaggerConfigGames.tag)
+    .build();
+
+  const gamesDocument = SwaggerModule.createDocument(app, secondoptions, {
+    include: [GamesModule],
+  });
+
+  SwaggerModule.setup(swaggerConfigGames.path, app, gamesDocument);
+
   await app.listen(config.port, config.host);
 }
 bootstrap(
   Config.get<AppConfig>('server'),
-  Config.get<SwaggerConfig>('swagger'),
+  Config.get<SwaggerConfig>('swagger_people'),
+  Config.get<SwaggerConfig>('swagger_games'),
 );
