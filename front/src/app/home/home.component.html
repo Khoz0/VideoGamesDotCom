@@ -1,37 +1,16 @@
 <div class="container">
   <div class="row" style="margin-top: 5vh; margin-bottom: 5vh">
-    <mat-card class="col-md-3" [routerLink]="'/games/1'" style="margin-right: 3vh">
+    <mat-card class="col-md-3" *ngFor="let game of games" [routerLink]="'/games/'+ game.id" style="margin-right: 3vh">
       <mat-card-title-group class="align-content-center">
         <mat-card-title>
-          Zelda ocarina of time
+          {{ game.title }}
         </mat-card-title>
         <mat-card-subtitle>
-          Le nouveau jeu à la mode en 2021
+          {{game.platform}}
         </mat-card-subtitle>
       </mat-card-title-group>
       <mat-card-content>
-        <img src="https://image.jeuxvideo.com/images/jaquettes/00049581/jaquette-final-fantasy-xiv-a-realm-reborn-pc-cover-avant-g-1377507184.jpg" alt="Un jeu" width="150" height="200">
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="col-md-3" [routerLink]="'/game/1'" style="margin-right: 3vh">
-      <mat-card-title-group>
-        <mat-card-title class="text-justify">
-          Le nouveau jeu à la mode
-        </mat-card-title>
-          <mat-card-subtitle>
-            Le nouveau jeu à la mode en 2021
-          </mat-card-subtitle>
-        </mat-card-title-group>
-        <mat-card-content>
-          <img src="/assets/images/jeu1.jpg" alt="Un jeu" width="130" height="130">
-        </mat-card-content>
-    </mat-card>
-    <mat-card class="col-md-3" [routerLink]="'/mon-compte'" style="margin-right: 3vh">
-      <mat-card-title>
-        Le nouveau jeu à la mode
-      </mat-card-title>
-      <mat-card-content>
-        <img src="/assets/images/jeu1.jpg" alt="Un jeu" width="130" height="130">
+        <img src="{{game.image}}" alt="Un jeu" width="150" height="200">
       </mat-card-content>
     </mat-card>
   </div>
