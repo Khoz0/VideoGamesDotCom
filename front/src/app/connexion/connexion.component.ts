@@ -24,7 +24,7 @@ export class ConnexionComponent implements OnInit {
         Validators.required, Validators.minLength(2)
       ])),
       password: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(8)
+        Validators.required, Validators.minLength(7)
       ]))
     })
   };

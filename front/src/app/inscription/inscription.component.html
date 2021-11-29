@@ -36,7 +36,7 @@
       <div style="text-align: center; margin-bottom: 2vh">
         <mat-form-field appearance="outline" style="width: 30vh">
           <mat-label>Mot de passe</mat-label>
-          <input name="password" matInput [type]="hide ? 'password' : 'text'" formControlName="password" required> <!--minlength="8"-->
+          <input name="password" matInput [type]="hide ? 'password' : 'text'" formControlName="password" required minlength="7">
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
@@ -44,14 +44,14 @@
             Le champs est <strong>Obligatoire</strong>
           </mat-error>
           <mat-error *ngIf="form.get('password')?.hasError('minlength')">
-            Le champs doit mesurer <strong>8 caractères minimum</strong>
+            Le champs doit mesurer <strong>7 caractères minimum</strong>
           </mat-error>
         </mat-form-field>
       </div>
       <div style="text-align: center; margin-bottom: 2vh">
         <mat-form-field appearance="outline" style="width: 30vh">
           <mat-label>Confirmation</mat-label>
-          <input name="repeatPassword" matInput [type]="hideRepeat ? 'password' : 'text'" formControlName="repeatPassword" required>
+          <input name="repeatPassword" matInput [type]="hideRepeat ? 'password' : 'text'" formControlName="repeatPassword" required minlength="7">
           <button mat-icon-button matSuffix type="button" (click)="hideRepeat = !hideRepeat" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeat">
             <mat-icon>{{hideRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
@@ -59,7 +59,7 @@
             Le champs est <strong>Obligatoire</strong>
           </mat-error>
           <mat-error *ngIf="form.get('repeatPassword')?.hasError('minlength')">
-            Le champs doit mesurer <strong>8 caractères minimum</strong>
+            Le champs doit mesurer <strong>7 caractères minimum</strong>
           </mat-error>
           <mat-error *ngIf="form.get('repeatPassword')?.hasError('mustMatch')">
             Le champs doit être le <strong>même que le mdp</strong>

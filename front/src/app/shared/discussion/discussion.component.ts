@@ -46,7 +46,7 @@ export class DiscussionComponent implements OnInit {
   }
 
   deleteDiscussion() {
-    DISCUSSIONS.splice(DISCUSSIONS.findIndex(discussion => discussion.id === this.currentDiscussion.id), 1)
+    //DISCUSSIONS.splice(DISCUSSIONS.findIndex(discussion => discussion.id === this.currentDiscussion.id), 1)
     // TODO : retirer discussions de la db une fois le lien fonctionnel
   }
 }

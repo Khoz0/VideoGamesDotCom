@@ -56,6 +56,7 @@ export class DiscussionsController {
     })
     @Post()
     create(@Body() createDiscussionDto: CreateDiscussionDto) : Observable<DiscussionsEntity> {
+        console.log("zéparti")
         return this._discussionService.create(createDiscussionDto);
     }
 

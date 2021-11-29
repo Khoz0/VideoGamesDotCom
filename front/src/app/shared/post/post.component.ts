@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {AuthentificationService} from "../services/authentification.service";
+import {PostService} from "../services/post.service";
 
 @Component({
   selector: 'app-post',
@@ -20,9 +21,9 @@ export class PostComponent implements OnInit {
   private _form: FormGroup
   private _admin: boolean;
 
-  constructor(private _activatedRoute:ActivatedRoute, private _authService: AuthentificationService) {
+  constructor(private _activatedRoute:ActivatedRoute, private _authService: AuthentificationService, private _postService: PostService) {
     this._admin = false;
-    this._posts = POSTS;
+    this._posts = [] as Post[];
     this._postHided = true
     this._form = new FormGroup({
       message: new FormControl('', Validators.compose([
@@ -36,6 +37,7 @@ export class PostComponent implements OnInit {
       // @ts-ignore
       this._id = params.get('id');
     });
+    this._postService.getPosts().subscribe({ next: (post: Post[]) => this._posts = post })
   }
 
   get posts(): Post[] {

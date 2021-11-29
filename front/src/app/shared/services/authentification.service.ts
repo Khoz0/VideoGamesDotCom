@@ -25,7 +25,7 @@ export class AuthentificationService{
   }
 
   login(loginForm: LoginForm) {
-   return this._http.post('http://0.0.0.0:3000/people/login', {pseudo: loginForm.pseudo, password: loginForm.password}, {responseType: 'text'}).pipe(
+   return this._http.post('http://localhost:3000/people/login', {pseudo: loginForm.pseudo, password: loginForm.password}, {responseType: 'text'}).pipe(
        map((token) => {
          localStorage.setItem(JWT_NAME, token)
          return token;
@@ -55,7 +55,7 @@ export class AuthentificationService{
   }
 
   register(person: PersonModel) {
-    return this._http.post<any>('http://0.0.0.0:3000/people', person).pipe(
+    return this._http.post<any>('http://localhost:3000/people', person).pipe(
       tap(person => console.log(person)),
       map(person => person)
     )

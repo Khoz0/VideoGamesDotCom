@@ -4,6 +4,10 @@ import {DISCUSSIONS} from "../data/discussions";
 import {DiscussionsService} from "../shared/services/discussions.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Post} from "../shared/types/post.type";
+import {DiscussionModel} from "../shared/model/discussion.model";
+import {map, tap} from "rxjs/operators";
+import {HttpClient} from "@angular/common/http";
+import {AuthentificationService} from "../shared/services/authentification.service";
 
 @Component({
   selector: 'app-forum',
@@ -16,7 +20,7 @@ export class ForumComponent implements OnInit {
   private _discussionHided: boolean;
   private _form: FormGroup
 
-  constructor(private _discussionsService: DiscussionsService) {
+  constructor(private _discussionsService: DiscussionsService, private _http: HttpClient, private _authService: AuthentificationService) {
     this._discussions = [] as Discussion[];
     this._discussionHided = true
     this._form = new FormGroup({
@@ -27,7 +31,7 @@ export class ForumComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._discussions = this._discussionsService.getDiscussions()
+    this._discussionsService.getDiscussions().subscribe({ next: (discussion: Discussion[]) => this._discussions = discussion })
   }
 
   get discussions(): Discussion[] {
@@ -58,7 +62,6 @@ export class ForumComponent implements OnInit {
   }
 
   createDiscussion(title: string) {
-    console.log(title)
     this._form.patchValue({
       title: ''
     })
@@ -68,12 +71,12 @@ export class ForumComponent implements OnInit {
     const date = new Date().toLocaleDateString("fr");
     let discussion: Discussion
     discussion = {
-      id : String(this._discussions.length+1),
       title: title,
       creationDate: date,
-      author: "Khozo",
+      author: this._authService.getPersonPseudo(),
       responses: 0
     }
-    this._discussions.push(discussion)
+    this._discussionsService.addDiscussion(discussion)
+    location.reload()
   }
 }

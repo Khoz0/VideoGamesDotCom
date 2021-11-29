@@ -1,5 +1,5 @@
 export type Discussion = {
-  id?: string;
+  id?: string,
   title?: string;
   creationDate?: string;
   author?: string;

@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {map, tap} from "rxjs/operators";
+import {DiscussionModel} from "../model/discussion.model";
 import {Observable} from "rxjs";
 import {Discussion} from "../types/discussion.type";
-import {DISCUSSIONS} from "../../data/discussions";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiscussionsService {
 
-  constructor() { }
+  constructor(private _http: HttpClient) { }
 
-
-  getDiscussions() {
-    return DISCUSSIONS;
+  addDiscussion(discussion: Discussion) {
+    return this._http.post<Discussion>('http://localhost:3000/discussions', discussion, DiscussionsService._options()).subscribe()
   }
 
-  public getDiscussion(id: string) {
-    let discussions:Discussion[]=this.getDiscussions();
-    return discussions.find(d => d.id==id);
+  getDiscussions(): Observable<Discussion[]> {
+    return this._http.get<Discussion[]>("http://localhost:3000/discussions")
+      .pipe(
+        tap(_ => console.log('fetched discussions'))
+      );
+  }
+
+  private static _options(headerList: object = {}): any {
+    return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
   }
 }
