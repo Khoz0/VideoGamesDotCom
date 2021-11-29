@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'tests', component: TestsComponent },
   { path: 'actualites', component: ActualitesComponent },
   { path: 'deconnexion', component: DeconnexionComponent },
-  { path: 'discussion', component: DiscussionComponent },
+  { path: 'discussions', component: DiscussionComponent },
   { path: 'post/:id', component: PostComponent },
 
   { path: '404', component: NotFoundComponent },

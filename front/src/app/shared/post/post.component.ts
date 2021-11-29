@@ -95,7 +95,7 @@ export class PostComponent implements OnInit {
       creationDate: date
     }
     this._posts.push(post)
-    // TODO: une fois le back fait il faut update les réponses de la discussion accessible via l'idDiscussion 'this._id'
+    // TODO: une fois le back fait il faut update les réponses de la discussions accessible via l'idDiscussion 'this._id'
   }
 
   deletePost(idPost: string | undefined) {

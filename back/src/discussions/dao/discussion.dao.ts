@@ -1,26 +1,25 @@
 import {Injectable} from "@nestjs/common";
 import {CreateDiscussionDto} from "../dto/create-discussion.dto";
 import {defaultIfEmpty, filter, from, map, Observable} from "rxjs";
-import {Person} from "../../people/schemas/person.schema";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
-import {Discussion, DiscussionDocument} from "../schemas/discussion.schema";
+import {Discussions, DiscussionDocument} from "../schemas/discussions.schema";
 import {UpdateDiscussionDto} from "../dto/update-discussion.dto";
 
 @Injectable()
 export class DiscussionDao {
 
     constructor(
-        @InjectModel(Person.name)
+        @InjectModel(Discussions.name)
         private readonly _discussionModel: Model<DiscussionDocument>,
     ) {}
 
-    save = (discussion : CreateDiscussionDto): Observable<Discussion> =>
+    save = (discussion : CreateDiscussionDto): Observable<Discussions> =>
         from(new this._discussionModel(discussion).save()).pipe(
             map((doc: DiscussionDocument) => doc.toJSON())
         )
 
-    find = (): Observable<Discussion[] | void> =>
+    find = (): Observable<Discussions[] | void> =>
         from(this._discussionModel.find({})).pipe(
             filter((docs: DiscussionDocument[]) => !!docs && docs.length > 0),
             map((docs: DiscussionDocument[]) =>
@@ -29,7 +28,7 @@ export class DiscussionDao {
             defaultIfEmpty(undefined)
         );
 
-    findById = (id: string): Observable<Discussion | void> =>
+    findById = (id: string): Observable<Discussions | void> =>
         from(this._discussionModel.findById(id)).pipe(
             filter((doc: DiscussionDocument) => !!doc),
             map((doc: DiscussionDocument) => doc.toJSON()),
@@ -39,7 +38,7 @@ export class DiscussionDao {
     findByIdAndUpdate = (
         id: string,
         discussion: UpdateDiscussionDto,
-    ): Observable<Discussion | void> =>
+    ): Observable<Discussions | void> =>
         from(
             this._discussionModel.findByIdAndUpdate(id, discussion, {
                 new: true,
@@ -51,7 +50,7 @@ export class DiscussionDao {
             defaultIfEmpty(undefined),
         );
 
-    findByIdAndRemove = (id: string): Observable<Discussion | void> =>
+    findByIdAndRemove = (id: string): Observable<Discussions | void> =>
         from(this._discussionModel.findByIdAndRemove(id)).pipe(
             filter((doc: DiscussionDocument) => !!doc),
             map((doc: DiscussionDocument) => doc.toJSON()),
