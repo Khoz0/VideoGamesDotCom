@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {catchError, map, tap} from "rxjs/operators";
 import {PersonModel} from "../model/person.model";
+import {from} from "rxjs";
 
 
 export interface LoginForm {
@@ -47,7 +48,11 @@ export class AuthentificationService{
   }
 
   getPersonRole() : string {
-    return  this._jwtHelper.decodeToken( localStorage.getItem(JWT_NAME) + "").person.role;
+    if (localStorage.getItem(JWT_NAME) !== null) {
+      return this._jwtHelper.decodeToken(localStorage.getItem(JWT_NAME)+"").person.role;
+    } else {
+      return "Default";
+    }
   }
 
   getPersonPseudo() : string {

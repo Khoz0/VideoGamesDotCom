@@ -26,4 +26,8 @@ export class GamesService {
   create(game: Game): Observable<any> {
     return this._http.post<Game>("http://localhost:3000/games", game);
   }
+
+  update(id: string, game: Game): Observable<any> {
+    return this._http.put("http://localhost:3000/games/"+id, game);
+  }
 }

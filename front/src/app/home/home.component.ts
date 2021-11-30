@@ -6,7 +6,6 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DialogComponent} from "../shared/dialog/dialog.component";
 import {filter, map, mergeMap} from "rxjs/operators";
 import {Observable} from "rxjs";
-import {error} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-home',
@@ -28,7 +27,6 @@ export class HomeComponent implements OnInit {
     this._gamesService
       .fetch()
       .subscribe({ next: (games: Game[]) => this._games = games });
-    this._admin = this._authService.getPersonRole() === "Admin";
   }
 
   get games() {
@@ -36,8 +34,7 @@ export class HomeComponent implements OnInit {
   }
 
   get admin() {
-    console.log(this._admin)
-    return this._admin;
+    return this._admin = this._authService.getPersonRole() === "Admin";
   }
 
   createGame() {

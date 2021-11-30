@@ -29,6 +29,11 @@
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
+<mat-grid-tile>
+  <div class="col-md-4" *ngIf="admin">
+    <button mat-stroked-button (click)="update()" >Modifier un Jeux</button>
+  </div>
+</mat-grid-tile>
 </mat-grid-list>
 
 
