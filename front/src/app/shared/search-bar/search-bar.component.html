@@ -3,7 +3,7 @@
     <mat-chip-list #chipList>
       <input #autocompleteInput type="text" placeholder="Chercher un jeu" aria-label="Number" matInput [formControl]="formControl"
              [matAutocomplete]="auto" [matChipInputFor]="chipList">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="display">
         <mat-option *ngFor="let option of autoCompleteList" [value]="option" [routerLink]="'/games/'+ option.id" (onSelectionChange)="filterGameList($event)">
           {{option.title}}
         </mat-option>

@@ -8,7 +8,7 @@
     <a mat-button [routerLink]="'/forum'"> Forum </a>
     <a mat-button [routerLink]="'/mon-compte'" *ngIf="isConnected"> Mon compte </a>
     <div class="spacer">
-      <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
+      <app-search-bar></app-search-bar>
     </div>
     <mat-icon>search</mat-icon>
     <a mat-button [routerLink]="'/inscription'" *ngIf="!isConnected"> Inscription </a>

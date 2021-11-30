@@ -8,40 +8,14 @@ import {Game} from "./shared/types/game.type";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
 
   private _title = 'VideoGamesDotCom';
   private _lightTheme = true;
   private _isDark = false;
-  private _games : Game[];
 
-  constructor(private _authService: AuthentificationService, private _gamesService: GamesService) {
-    this._games = []
-  }
+  constructor(private _authService: AuthentificationService) {
 
-  ngOnInit() {
-    this._gamesService.fetch().subscribe(result => {
-      this._games = result;
-    });
-  }
-
-  onSelectedOption(event: EventEmitter<any>) {
-    this.getFilteredExpenseList();
-  }
-
-  getFilteredExpenseList() {
-    if (this._gamesService.searchOptions.length > 0)
-      this._games = this._gamesService.filteredOptions();
-    else {
-      this._gamesService.fetch().subscribe(
-        result => {this._games = result}
-      );
-    }
-
-  }
-
-  get games(): Game[] {
-    return this._games;
   }
 
   @HostBinding('class')

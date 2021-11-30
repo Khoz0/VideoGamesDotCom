@@ -65,26 +65,20 @@ export class SearchBarComponent implements OnInit {
   }
 
   private autoCompleteExpenseList(input: any) {
-    let categoryList = this.filterCategoryList(input)
-    this._autoCompleteList = categoryList;
+    this._autoCompleteList = this.filterCategoryList(input);
   }
 
-  filterCategoryList(val: any) {
-    if (typeof val != "string") {
+  filterCategoryList(val: string) {
+    if (typeof val != "string" || val === '' || val === null) {
       return [];
     }
-    if (val === '' || val === null) {
-      return [];
-    }
-    let test = val ? this.allGames.filter(res => res.title !== undefined).filter(resGood => resGood.title?.toLowerCase().indexOf(val.toLowerCase()) != -1)
+    return val ? this.allGames.filter(res => res.title !== undefined).filter(resGood => resGood.title?.toLowerCase().indexOf(val.toLowerCase()) != -1)
       : this.allGames;
-
-    return test
   }
 
-  displayFn(game: Game) {
-      let k = game ? game.title : game;
-      return k+"";
+  display(game: Game) {
+      let title = game ? game.title : game;
+      return title+"";
   }
 
   filterGameList(event: any) {
@@ -93,7 +87,6 @@ export class SearchBarComponent implements OnInit {
       this._gamesService.searchOptions=[]
     }
     else {
-
       this._gamesService.searchOptions.push(games);
       this.onSelectedOption.emit(this._gamesService.searchOptions)
     }
