@@ -4,18 +4,12 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PeopleModule } from './people/people.module';
 import { AuthModule } from './auth/auth.module';
-import * as Config from 'config';
-import { DiscussionModule } from './discussion/discussion.module';
-import { GamesModule } from './games/games.module';
+import * as Config from 'config'
+import {DiscussionsModule} from "./discussions/discussions.module";
+import {PostModule} from "./post/post.module";
 
 @Module({
-  imports: [
-    MongooseModule.forRoot(Config.get<string>('mongodb.uri')),
-    PeopleModule,
-    AuthModule,
-    DiscussionModule,
-    GamesModule,
-  ],
+  imports: [MongooseModule.forRoot(Config.get<string>('mongodb.uri')), PeopleModule, AuthModule, DiscussionsModule, PostModule],
   controllers: [AppController],
   providers: [AppService],
 })

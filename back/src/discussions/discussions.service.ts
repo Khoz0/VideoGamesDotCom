@@ -1,55 +1,55 @@
 import {Injectable, NotFoundException, UnprocessableEntityException} from '@nestjs/common';
 import {catchError, defaultIfEmpty, filter, map, mergeMap, Observable, of, throwError} from "rxjs";
 import {CreateDiscussionDto} from "./dto/create-discussion.dto";
-import {DiscussionEntity} from "./entities/discussion.entity";
+import {DiscussionsEntity} from "./entities/discussions.entity";
 import {DiscussionDao} from "./dao/discussion.dao";
-import {Discussion} from "./schemas/discussion.schema";
+import {Discussions} from "./schemas/discussions.schema";
 import {UpdateDiscussionDto} from "./dto/update-discussion.dto";
 
 @Injectable()
-export class DiscussionService {
+export class DiscussionsService {
     constructor(private readonly _discussionDao: DiscussionDao) {
     }
 
-    create =  (createDiscussionDto: CreateDiscussionDto) : Observable<DiscussionEntity> =>
+    create =  (createDiscussionDto: CreateDiscussionDto) : Observable<DiscussionsEntity> =>
         this._discussionDao.save(createDiscussionDto).pipe(
             catchError((e) =>
                 throwError(() => new UnprocessableEntityException(e.message))
             ),
-            map((_:Discussion) => new DiscussionEntity(_))
+            map((_:Discussions) => new DiscussionsEntity(_))
         );
 
-    findAll = (): Observable<DiscussionEntity[] | void> =>
+    findAll = (): Observable<DiscussionsEntity[] | void> =>
         this._discussionDao.find().pipe(
-            filter((_:Discussion[]) => !!_),
-            map((_: Discussion[]) => _.map((_: Discussion) => new DiscussionEntity(_))),
+            filter((_:Discussions[]) => !!_),
+            map((_: Discussions[]) => _.map((_: Discussions) => new DiscussionsEntity(_))),
             defaultIfEmpty(undefined),
         )
 
 
 
-    findOne = (id: string): Observable<DiscussionEntity> =>
+    findOne = (id: string): Observable<DiscussionsEntity> =>
         this._discussionDao.findById(id).pipe(
             catchError((e) =>
                 throwError(() => new UnprocessableEntityException(e.message)),
             ),
-            mergeMap((_: Discussion) =>
+            mergeMap((_: Discussions) =>
                 !!_
-                    ? of(new DiscussionEntity(_))
+                    ? of(new DiscussionsEntity(_))
                     : throwError(
                         () => new NotFoundException(`Discussion with id '${id}' not found`),
                     ),
             ),
         );
 
-    update = (id: string, updateDiscussionDto: UpdateDiscussionDto) : Observable<DiscussionEntity> => {
+    update = (id: string, updateDiscussionDto: UpdateDiscussionDto) : Observable<DiscussionsEntity> => {
         return this._discussionDao.findByIdAndUpdate(id, updateDiscussionDto).pipe(
             catchError((e) =>
                 throwError(() => new UnprocessableEntityException(e.message)),
             ),
-            mergeMap((_: Discussion) =>
+            mergeMap((_: Discussions) =>
                 !!_
-                    ? of(new DiscussionEntity(_))
+                    ? of(new DiscussionsEntity(_))
                     : throwError(
                         () => new NotFoundException(`Discussion with id '${id}' not found`),
                     ),
@@ -62,7 +62,7 @@ export class DiscussionService {
             catchError((e) =>
                 throwError(() => new UnprocessableEntityException(e.message)),
             ),
-            mergeMap((_:Discussion) =>
+            mergeMap((_:Discussions) =>
                 !!_
                     ? of(undefined)
                     : throwError(

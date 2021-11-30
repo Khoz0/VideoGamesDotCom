@@ -30,13 +30,13 @@ export class InscriptionComponent implements OnInit {
         Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}")
       ])),
       password: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(8)
+        Validators.required, Validators.minLength(7)
       ])),
       role: new FormControl('User', Validators.compose([
         Validators.required, Validators.minLength(4)
       ])),
       repeatPassword: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(8), CustomValidators.mustMatch
+        Validators.required, Validators.minLength(7), CustomValidators.mustMatch
       ]))
     });
   }
@@ -82,7 +82,7 @@ export class InscriptionComponent implements OnInit {
       catchError( (e)  => {
         this._err = true;
         this._form.addControl('repeatPassword', new FormControl('', Validators.compose([
-          Validators.required, Validators.minLength(8), CustomValidators.mustMatch
+          Validators.required, Validators.minLength(7), CustomValidators.mustMatch
         ])))
         return throwError(e);
       })

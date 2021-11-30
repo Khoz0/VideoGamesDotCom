@@ -23,7 +23,7 @@
         </mat-form-field>
       </div>
       <div style="text-align: center">
-        <button mat-stroked-button type="submit" (click)="createDiscussion(form.value.title)">Poster</button>
+        <button mat-stroked-button type="button" (click)="createDiscussion(form.value.title)">Poster</button>
       </div>
     </form>
   </div>
@@ -31,6 +31,5 @@
 </div>
 
 <div *ngFor="let discussion of discussions">
-  <p>{{discussion.id}}</p>
   <app-discussion [currentDiscussion] = discussion></app-discussion>
 </div>

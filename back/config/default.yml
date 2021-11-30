@@ -1,5 +1,5 @@
 server:
-  host: 0.0.0.0
+  host: localhost
   port: 3000
   cors:
     - "http://0.0.0.0:4200"
@@ -18,4 +18,4 @@ swagger_games:
     tag: games
     path: documentation/games
 mongodb:
-  uri: mongodb://0.0.0.0:27017/vgdc
+  uri: mongodb://localhost:27017/vgdc

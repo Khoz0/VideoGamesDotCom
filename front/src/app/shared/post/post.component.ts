@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {POSTS} from "../../data/posts";
 import {Post} from "../types/post.type";
-import {Discussion} from "../types/discussion.type";
 import {ActivatedRoute} from "@angular/router";
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthentificationService} from "../services/authentification.service";
+import {PostService} from "../services/post.service";
+import {DiscussionsService} from "../services/discussions.service";
 
 @Component({
   selector: 'app-post',
@@ -20,9 +20,9 @@ export class PostComponent implements OnInit {
   private _form: FormGroup
   private _admin: boolean;
 
-  constructor(private _activatedRoute:ActivatedRoute, private _authService: AuthentificationService) {
+  constructor(private _activatedRoute:ActivatedRoute, private _authService: AuthentificationService, private _postService: PostService, private _discussionsService: DiscussionsService) {
     this._admin = false;
-    this._posts = POSTS;
+    this._posts = [] as Post[];
     this._postHided = true
     this._form = new FormGroup({
       message: new FormControl('', Validators.compose([
@@ -36,6 +36,7 @@ export class PostComponent implements OnInit {
       // @ts-ignore
       this._id = params.get('id');
     });
+    this._postService.getPosts().subscribe({ next: (post: Post[]) => this._posts = post })
   }
 
   get posts(): Post[] {
@@ -88,18 +89,20 @@ export class PostComponent implements OnInit {
     const date = new Date().toLocaleDateString("fr");
     let post: Post
     post = {
-      id : String(this._posts.length+1),
-      idDiscussion: this._id,
-      author: "Khozo",
+      idDiscussion: this.id,
+      author: this._authService.getPersonPseudo(),
       text: message,
       creationDate: date
     }
-    this._posts.push(post)
-    // TODO: une fois le back fait il faut update les réponses de la discussion accessible via l'idDiscussion 'this._id'
+    this._postService.addPost(post)
+    this._discussionsService.updateDiscussionsAdd(this.id)
   }
 
   deletePost(idPost: string | undefined) {
-    POSTS.splice(POSTS.findIndex(post => post.id === idPost), 1)
+    if (idPost != null) {
+      this._postService.deletePost(idPost)
+      this._discussionsService.updateDiscussionsDelete(this.id)
+    }
 
   }
 }

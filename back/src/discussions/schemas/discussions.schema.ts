@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
 
-export type DiscussionDocument = Discussion & Document;
+export type DiscussionDocument = Discussions & Document;
 
 @Schema({
     toJSON: {
@@ -13,7 +13,7 @@ export type DiscussionDocument = Discussion & Document;
     },
     versionKey: false,
 })
-export class Discussion {
+export class Discussions {
     @Prop({
         type: mongoose.Schema.Types.ObjectId,
         auto: true,
@@ -50,4 +50,4 @@ export class Discussion {
     responses: number;
 }
 
-export const DiscussionSchema = SchemaFactory.createForClass(Discussion);
+export const DiscussionsSchema = SchemaFactory.createForClass(Discussions);
