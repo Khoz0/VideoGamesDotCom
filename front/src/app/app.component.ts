@@ -1,18 +1,47 @@
-import {Component, HostBinding} from '@angular/core';
+import {Component, EventEmitter, HostBinding, OnInit} from '@angular/core';
 import {AuthentificationService} from "./shared/services/authentification.service";
+import {GamesService} from "./shared/services/games.service";
+import {Game} from "./shared/types/game.type";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   private _title = 'VideoGamesDotCom';
   private _lightTheme = true;
   private _isDark = false;
+  private _games : Game[];
 
-  constructor(private _authService: AuthentificationService) {
+  constructor(private _authService: AuthentificationService, private _gamesService: GamesService) {
+    this._games = []
+  }
+
+  ngOnInit() {
+    this._gamesService.fetch().subscribe(result => {
+      this._games = result;
+    });
+  }
+
+  onSelectedOption(event: EventEmitter<any>) {
+    this.getFilteredExpenseList();
+  }
+
+  getFilteredExpenseList() {
+    if (this._gamesService.searchOptions.length > 0)
+      this._games = this._gamesService.filteredOptions();
+    else {
+      this._gamesService.fetch().subscribe(
+        result => {this._games = result}
+      );
+    }
+
+  }
+
+  get games(): Game[] {
+    return this._games;
   }
 
   @HostBinding('class')

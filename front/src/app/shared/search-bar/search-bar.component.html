@@ -1,0 +1,13 @@
+<form class="example-form" >
+  <mat-form-field class="example-full-width" style="width: 100%">
+    <mat-chip-list #chipList>
+      <input #autocompleteInput type="text" placeholder="Chercher un jeu" aria-label="Number" matInput [formControl]="formControl"
+             [matAutocomplete]="auto" [matChipInputFor]="chipList">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of autoCompleteList" [value]="option" [routerLink]="'/games/'+ option.id" (onSelectionChange)="filterGameList($event)">
+          {{option.title}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-chip-list>
+  </mat-form-field>
+</form>
