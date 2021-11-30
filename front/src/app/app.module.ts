@@ -28,6 +28,9 @@ import { DiscussionComponent } from './shared/discussion/discussion.component';
 import { PostComponent } from './shared/post/post.component';
 import { GamesComponent } from './games/games.component';
 import {MatGridListModule} from "@angular/material/grid-list";
+import { FormGamesComponent } from './shared/form-games/form-games.component';
+import { DialogComponent } from './shared/dialog/dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -44,7 +47,9 @@ import {MatGridListModule} from "@angular/material/grid-list";
     DeconnexionComponent,
     DiscussionComponent,
     PostComponent,
-    GamesComponent
+    GamesComponent,
+    FormGamesComponent,
+    DialogComponent
   ],
     imports: [
         BrowserModule,
@@ -60,6 +65,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
         HttpClientModule,
         JwtModule,
         MatGridListModule,
+        MatDialogModule,
     ],
   providers: [JwtHelperService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS}, {
     provide: HTTP_INTERCEPTORS,

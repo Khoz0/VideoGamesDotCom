@@ -24,7 +24,7 @@ import { GameEntity } from './entities/game.entity';
 export class GamesService {
   constructor(private readonly _gamesDao: GamesDao) {}
 
-  create = (createGameDto: CreateGameDto) : Observable<GameEntity> =>
+  create = (createGameDto: CreateGameDto): Observable<GameEntity> =>
     this._gamesDao.save(createGameDto).pipe(
       catchError((e) =>
         e.code === 1100
@@ -60,8 +60,8 @@ export class GamesService {
       ),
     );
 
-  update = (id: string, updateGameDto: UpdateGameDto) : Observable<GameEntity> =>
-     this._gamesDao.findByIdAndUpdate(id, updateGameDto).pipe(
+  update = (id: string, updateGameDto: UpdateGameDto): Observable<GameEntity> =>
+    this._gamesDao.findByIdAndUpdate(id, updateGameDto).pipe(
       catchError((e) =>
         e.code === 1100
           ? throwError(() => new UnprocessableEntityException(e.message))

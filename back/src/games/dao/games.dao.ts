@@ -27,13 +27,6 @@ export class GamesDao {
       defaultIfEmpty(undefined),
     );
 
-  findByPseudo = (pseudo: string): Observable<Game | void> =>
-    from(this._GameModel.findOne({ pseudo: pseudo })).pipe(
-      filter((doc: GameDocument) => !!doc),
-      map((doc: GameDocument) => doc.toJSON()),
-      defaultIfEmpty(undefined),
-    );
-
   save = (Game: CreateGameDto): Observable<Game> =>
     from(new this._GameModel(Game).save()).pipe(
       map((doc: GameDocument) => doc.toJSON()),

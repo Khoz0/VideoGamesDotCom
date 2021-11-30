@@ -33,7 +33,6 @@ export class AppComponent {
   }
 
   get isAdmin(): boolean {
-    console.log(this._authService.getPersonRole())
     return this._authService.getPersonRole() === "Admin" ;
   }
 

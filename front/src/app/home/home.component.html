@@ -14,4 +14,7 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <div class="col-md-4" *ngIf="admin">
+    <button mat-stroked-button (click)="createGame()" >Créer un Jeux</button>
+  </div>
 </div>

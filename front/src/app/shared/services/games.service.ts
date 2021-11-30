@@ -22,4 +22,8 @@ export class GamesService {
   fetchOne(id: string): Observable<Game> {
     return this._http.get<Game>("http://localhost:3000/games/"+id)
   }
+
+  create(game: Game): Observable<any> {
+    return this._http.post<Game>("http://localhost:3000/games", game);
+  }
 }
