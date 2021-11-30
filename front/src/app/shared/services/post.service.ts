@@ -18,4 +18,11 @@ export class PostService {
         tap(_ => console.log('fetched posts'))
       );
   }
+
+  getPostsByIdDiscussion(id: string): Observable<Post[]> {
+    return this._http.get<Post[]>("http://localhost:3000/posts")
+      .pipe(
+        tap(_ => console.log('fetched posts'))
+      );
+  }
 }
