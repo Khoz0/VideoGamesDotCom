@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row" style="margin-top: 5vh; margin-bottom: 5vh">
-    <mat-card class="col-md-3" *ngFor="let game of games" [routerLink]="'/games/'+ game.id" style="margin-right: 3vh">
+    <mat-card class="col-md-3" *ngFor="let game of games | randomOrder | slice:0:3; let i=index" [routerLink]="'/games/'+ game.id" style="margin-right: 3vh">
       <mat-card-title-group class="align-content-center">
         <mat-card-title>
           {{ game.title }}
