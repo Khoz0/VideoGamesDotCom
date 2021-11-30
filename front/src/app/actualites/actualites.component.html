@@ -1,1 +1,66 @@
-<p>actualites works!</p>
+<div class="row" style="margin-bottom: 5vh; margin-top: 5vh; text-align: center" *ngIf="admin">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <button mat-stroked-button (click)="openActualite()">Créer un article</button>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+
+<div class="row" *ngIf="!actualitesHided">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <form [formGroup]="form">
+      <div style="text-align: center; margin-top: 5vh">
+        <mat-form-field appearance="outline" style="width: 80vh">
+          <mat-label>Titre de la discussion</mat-label>
+          <input name="title" matInput placeholder="Mon meilleur titre ! :•)" formControlName="title" minlength="1" required>
+          <mat-error *ngIf="form.get('title')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('title')?.hasError('minlength')">
+            Le champs doit mesurer <strong>1 caractères minimum</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 80vh">
+          <mat-label>Titre de la discussion</mat-label>
+          <input name="text" matInput placeholder="Mon actualité ! :•)" formControlName="text" minlength="1" required>
+          <mat-error *ngIf="form.get('text')?.hasError('required')">
+            Le champs est <strong>Obligatoire</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('text')?.hasError('minlength')">
+            Le champs doit mesurer <strong>1 caractères minimum</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div style="text-align: center">
+        <button mat-stroked-button type="button" (click)="createActualite(form)">Poster</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+<div class="container">
+  <div class="row" style="margin-top: 5vh" *ngFor="let actualite of actualites">
+    <mat-card class="col-md-2">
+      <mat-card-title>
+        {{actualite.title}}
+      </mat-card-title>
+    </mat-card>
+    <mat-card class="col-md-7">
+      <mat-card-content>
+        {{actualite.text}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="col-md-2" >
+      <mat-card-title style="text-align: center">
+        {{actualite.creationDate}}
+      </mat-card-title>
+    </mat-card>
+    <div class="col-md-1" style="display: inline-block;align-self: center;" *ngIf="admin">
+      <mat-icon (click)="deletePost(actualite.id)">
+        delete
+      </mat-icon>
+    </div>
+  </div>
+</div>

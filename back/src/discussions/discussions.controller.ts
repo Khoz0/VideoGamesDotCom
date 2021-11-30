@@ -9,24 +9,22 @@ import {
   Put,
   UseInterceptors,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { CreateDiscussionDto } from './dto/create-discussion.dto';
-import { DiscussionsService } from './discussions.service';
+
+import {Observable} from "rxjs";
+import {CreateDiscussionDto} from "./dto/create-discussion.dto";
+import {DiscussionsService} from "./discussions.service";
 import {
-  ApiBadRequestResponse,
-  ApiBody,
-  ApiConflictResponse,
-  ApiNoContentResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiParam,
-  ApiTags,
-  ApiUnprocessableEntityResponse,
-} from '@nestjs/swagger';
-import { HttpInterceptor } from '../interceptors/http.interceptor';
-import { DiscussionsEntity } from './entities/discussions.entity';
-import { HandlerParams } from '../people/validators/handler-params';
-import { UpdateDiscussionDto } from './dto/update-discussion.dto';
+    ApiBadRequestResponse, ApiBody,
+    ApiConflictResponse, ApiNoContentResponse,
+    ApiNotFoundResponse,
+    ApiOkResponse, ApiParam,
+    ApiTags,
+    ApiUnprocessableEntityResponse
+} from "@nestjs/swagger";
+import {HttpInterceptor} from "../interceptors/http.interceptor";
+import {DiscussionsEntity} from "./entities/discussions.entity";
+import {HandlerParams} from "../people/validators/handler-params";
+import {UpdateDiscussionDto} from "./dto/update-discussion.dto";
 
 @ApiTags('discussions')
 @Controller('discussions')
@@ -100,40 +98,36 @@ export class DiscussionsController {
     return this._discussionService.findOne(params.id);
   }
 
-  @ApiOkResponse({
-    description: 'The discussions has been successfully updated',
-    type: DiscussionsEntity,
-  })
-  @ApiNotFoundResponse({
-    description:
-      "The discussions with the given id doesn't exist in the database",
-  })
-  @ApiConflictResponse({
-    description: 'The id exists in the database',
-  })
-  @ApiBadRequestResponse({
-    description: 'The parameter/payload provided is not good',
-  })
-  @ApiUnprocessableEntityResponse({
-    description: "The request can't be performed in the database",
-  })
-  @ApiParam({
-    name: 'id',
-    description: 'Unique identifier of the discussions in the database',
-    type: String,
-    allowEmptyValue: false,
-  })
-  @ApiBody({
-    description: 'Payload to update a discussions',
-    type: UpdateDiscussionDto,
-  })
-  @Put(':id')
-  update(
-    @Param() params: HandlerParams,
-    @Body() updateDiscussionDto: UpdateDiscussionDto,
-  ) {
-    return this._discussionService.update(params.id, updateDiscussionDto);
-  }
+    @ApiOkResponse({
+        description: 'The discussions has been successfully updated',
+        type: DiscussionsEntity,
+    })
+    @ApiNotFoundResponse({
+        description: 'The discussions with the given id doesn\'t exist in the database'
+    })
+    @ApiConflictResponse({
+        description: 'The id exists in the database'
+    })
+    @ApiBadRequestResponse({
+        description: 'The parameter/payload provided is not good'
+    })
+    @ApiUnprocessableEntityResponse({
+        description: 'The request can\'t be performed in the database'
+    })
+    @ApiParam({
+        name: 'id',
+        description: 'Unique identifier of the discussions in the database',
+        type: String,
+        allowEmptyValue: false,
+    })
+    @ApiBody({
+        description: 'Payload to update a discussions',
+        type: UpdateDiscussionDto,
+    })
+    @Put(':id')
+    update(@Param() params: HandlerParams, @Body() updateDiscussionDto: UpdateDiscussionDto) {
+        return this._discussionService.update(params.id, updateDiscussionDto);
+    }
 
   @ApiNoContentResponse({
     description: 'The discussions has been successfuly deleted',
