@@ -32,6 +32,7 @@ import { FormGamesComponent } from './shared/form-games/form-games.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {RandomOrderPipe} from "./shared/pipes/randomOrder.pipe";
+import { GamesListComponent } from './games-list/games-list.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {RandomOrderPipe} from "./shared/pipes/randomOrder.pipe";
     GamesComponent,
     FormGamesComponent,
     DialogComponent,
-    RandomOrderPipe
+    RandomOrderPipe,
+    GamesListComponent
   ],
     imports: [
         BrowserModule,

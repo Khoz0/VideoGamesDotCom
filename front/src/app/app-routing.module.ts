@@ -13,6 +13,7 @@ import {DeconnexionComponent} from "./deconnexion/deconnexion.component";
 import {DiscussionComponent} from "./shared/discussion/discussion.component";
 import {PostComponent} from "./shared/post/post.component";
 import {GamesComponent} from "./games/games.component";
+import {GamesListComponent} from "./games-list/games-list.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'discussions', component: DiscussionComponent },
   { path: 'post/:id', component: PostComponent },
   { path: 'games/:id', component: GamesComponent},
+  { path: 'games', component: GamesListComponent},
 
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '404'}
