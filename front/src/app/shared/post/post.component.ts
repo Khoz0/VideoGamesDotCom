@@ -1,10 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {POSTS} from "../../data/posts";
 import {Post} from "../types/post.type";
-import {Discussion} from "../types/discussion.type";
 import {ActivatedRoute} from "@angular/router";
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthentificationService} from "../services/authentification.service";
 import {PostService} from "../services/post.service";
 
@@ -90,18 +88,20 @@ export class PostComponent implements OnInit {
     const date = new Date().toLocaleDateString("fr");
     let post: Post
     post = {
-      id : String(this._posts.length+1),
-      idDiscussion: this._id,
-      author: "Khozo",
+      idDiscussion: this.id,
+      author: this._authService.getPersonPseudo(),
       text: message,
       creationDate: date
     }
-    this._posts.push(post)
-    // TODO: une fois le back fait il faut update les réponses de la discussions accessible via l'idDiscussion 'this._id'
+    this._postService.addPost(post)
+    window.location.reload()
   }
 
   deletePost(idPost: string | undefined) {
-    POSTS.splice(POSTS.findIndex(post => post.id === idPost), 1)
+    if (idPost != null) {
+      this._postService.deletePost(idPost)
+      window.location.reload()
+    }
 
   }
 }

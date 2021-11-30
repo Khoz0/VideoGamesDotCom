@@ -26,7 +26,7 @@ export class DiscussionsEntity {
 
     @ApiProperty({name: 'responses', description: 'the number of responses in the discussions', example: '5'})
     @Exclude()
-    @Type(() => String)
+    @Type(() => Number)
     responses: number;
 
     constructor(partial: Partial<DiscussionsEntity>) {

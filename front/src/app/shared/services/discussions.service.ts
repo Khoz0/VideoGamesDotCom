@@ -26,4 +26,8 @@ export class DiscussionsService {
   private static _options(headerList: object = {}): any {
     return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
   }
+
+  deleteDiscussion(idDiscussion: string) {
+    return this._http.delete<Discussion>('http://localhost:3000/discussions/:id'.replace(':id', idDiscussion)).subscribe()
+  }
 }

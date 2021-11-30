@@ -25,7 +25,7 @@ export class CreatePostDto {
         description: "the text of the post",
         example: "Hello guys !!!!!"
     })
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
     text: string
 

@@ -37,7 +37,7 @@ export class PostService {
                 !!_
                     ? of(new PostEntity(_))
                     : throwError(
-                        () => new NotFoundException(`Discussion with id '${id}' not found`),
+                        () => new NotFoundException(`Post with id '${id}' not found`),
                     ),
             ),
         );
@@ -51,7 +51,7 @@ export class PostService {
                 !!_
                     ? of(new PostEntity(_))
                     : throwError(
-                        () => new NotFoundException(`Discussion with id '${id}' not found`),
+                        () => new NotFoundException(`Post with id '${id}' not found`),
                     ),
             ),
         );
@@ -66,7 +66,7 @@ export class PostService {
                 !!_
                     ? of(undefined)
                     : throwError(
-                        () => new NotFoundException(`Discussion with id '${id}' not found`),
+                        () => new NotFoundException(`Post with id '${id}' not found`),
                     ),
             ),
         );
