@@ -8,9 +8,10 @@ import * as Config from 'config'
 import {DiscussionsModule} from "./discussions/discussions.module";
 import {PostModule} from "./post/post.module";
 import {ActualitesModule} from "./actualites/actualites.module";
+import {GamesModule} from "./games/games.module";
 
 @Module({
-  imports: [MongooseModule.forRoot(Config.get<string>('mongodb.uri')), PeopleModule, AuthModule, DiscussionsModule, PostModule, ActualitesModule],
+  imports: [MongooseModule.forRoot(Config.get<string>('mongodb.uri')), PeopleModule, AuthModule, DiscussionsModule, PostModule, ActualitesModule, GamesModule],
   controllers: [AppController],
   providers: [AppService],
 })
