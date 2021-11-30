@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthentificationService} from "../shared/services/authentification.service";
 
 @Component({
   selector: 'app-actualites',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActualitesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _authService: AuthentificationService) { }
 
   ngOnInit(): void {
+  }
+
+  get admin(): boolean {
+    return this._authService.getPersonRole() == "Admin";
   }
 
 }

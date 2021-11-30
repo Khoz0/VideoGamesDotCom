@@ -11,11 +11,7 @@ import {
 } from '@nestjs/common';
 import {Observable} from "rxjs";
 import {CreateDiscussionDto} from "./dto/create-discussion.dto";
-<<<<<<< HEAD:back/src/discussion/discussion.controller.ts
-import {DiscussionService} from "./discussion.service";
-=======
 import {DiscussionsService} from "./discussions.service";
->>>>>>> lien-api-front-forum:back/src/discussions/discussions.controller.ts
 import {
     ApiBadRequestResponse, ApiBody,
     ApiConflictResponse, ApiNoContentResponse,
@@ -25,11 +21,7 @@ import {
     ApiUnprocessableEntityResponse
 } from "@nestjs/swagger";
 import {HttpInterceptor} from "../interceptors/http.interceptor";
-<<<<<<< HEAD:back/src/discussion/discussion.controller.ts
-import {DiscussionEntity} from "./entities/discussion.entity";
-=======
 import {DiscussionsEntity} from "./entities/discussions.entity";
->>>>>>> lien-api-front-forum:back/src/discussions/discussions.controller.ts
 import {HandlerParams} from "../people/validators/handler-params";
 import {UpdateDiscussionDto} from "./dto/update-discussion.dto";
 
@@ -104,13 +96,8 @@ export class DiscussionsController {
     }
 
     @ApiOkResponse({
-<<<<<<< HEAD:back/src/discussion/discussion.controller.ts
-        description: 'The discussion has been successfully updated',
-        type: DiscussionEntity,
-=======
         description: 'The discussions has been successfully updated',
         type: DiscussionsEntity,
->>>>>>> lien-api-front-forum:back/src/discussions/discussions.controller.ts
     })
     @ApiNotFoundResponse({
         description: 'The discussions with the given id doesn\'t exist in the database'
@@ -131,11 +118,7 @@ export class DiscussionsController {
         allowEmptyValue: false,
     })
     @ApiBody({
-<<<<<<< HEAD:back/src/discussion/discussion.controller.ts
-        description: 'Payload to update a discussion',
-=======
         description: 'Payload to update a discussions',
->>>>>>> lien-api-front-forum:back/src/discussions/discussions.controller.ts
         type: UpdateDiscussionDto,
     })
     @Put(':id')
