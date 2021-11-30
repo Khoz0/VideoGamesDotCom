@@ -96,6 +96,7 @@ export class PostComponent implements OnInit {
     }
     this._postService.addPost(post)
     this._discussionsService.updateDiscussionsAdd(this.id)
+    location.reload();
   }
 
   deletePost(idPost: string | undefined) {
