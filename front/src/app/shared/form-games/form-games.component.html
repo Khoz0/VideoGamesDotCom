@@ -1,0 +1,74 @@
+<div class="parent">
+  <mat-dialog-content>
+  <mat-card-content>
+    <mat-card-title *ngIf="!isUpdateMode">
+      Nouveau Jeu
+    </mat-card-title>
+    <mat-card-title *ngIf="isUpdateMode">
+      Modifier {{form.get("title")?.value}}
+    </mat-card-title>
+  </mat-card-content>
+  <form [formGroup]="form">
+    <div style="text-align: center; margin-bottom: 2vh">
+      <mat-form-field appearance="outline" style="width: 30vh">
+        <mat-label>Titre</mat-label>
+        <input name="title" matInput formControlName="title" minlength="2" value="" required>
+        <mat-error *ngIf="form.get('title')?.hasError('required')">
+          Le champs est <strong>Obligatoire</strong>
+        </mat-error>
+        <mat-error *ngIf="form.get('title')?.hasError('minlength')">
+          Le champs doit mesurer <strong>2 caractères minimum</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div style="text-align: center; margin-bottom: 2vh">
+      <mat-form-field appearance="outline" style="width: 30vh">
+        <mat-label>Synopsis</mat-label>
+        <textarea  name="synopsis" matInput placeholder="Placeholder" formControlName="synopsis"  required>
+        </textarea>
+        <mat-error *ngIf="form.get('synopsis')?.hasError('required')">
+          Le champs est <strong>Obligatoire</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div style="text-align: center; margin-bottom: 2vh">
+      <mat-form-field appearance="outline" style="width: 30vh">
+        <mat-label>Note</mat-label>
+        <input type="number"  name="note" matInput  formControlName="note" value="" min="0" max="20" required>
+        <mat-error *ngIf="form.get('note')?.hasError('required')">
+          Le champs est <strong>Obligatoire</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div style="text-align: center; margin-bottom: 2vh">
+      <mat-form-field appearance="outline" style="width: 30vh">
+        <mat-label>Url de l'image</mat-label>
+        <input name="image" matInput formControlName="image" value="" required>
+        <mat-error *ngIf="form.get('image')?.hasError('required')">
+          Le champs est <strong>Obligatoire</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div style="text-align: center; margin-bottom: 2vh">
+      <mat-form-field appearance="outline" style="width: 30vh">
+        <mat-label>Test</mat-label>
+        <textarea  name="test" matInput placeholder="Placeholder" formControlName="test">
+        </textarea>
+      </mat-form-field>
+    </div>
+    <div style="text-align: center; margin-bottom: 2vh">
+      <mat-form-field appearance="outline" style="width: 30vh">
+        <mat-label>Plateforme</mat-label>
+        <input  name="platform" matInput placeholder="Placeholder" formControlName="platform" required>
+        <mat-error *ngIf="form.get('paltform')?.hasError('required')">
+          Le champs est <strong>Obligatoire</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-button color="primary" type="submit" (click)="submit(form.value)" [disabled]="form.invalid">Ajouter</button>
+  </mat-dialog-actions>
+</div>
