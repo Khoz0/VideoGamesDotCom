@@ -45,6 +45,7 @@ export class ForumComponent implements OnInit {
   set discussionHided(value: boolean) {
     this._discussionHided = value;
   }
+
   get form(): FormGroup {
     return this._form;
   }
