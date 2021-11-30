@@ -1,5 +1,5 @@
 import {ApiProperty, PartialType} from "@nestjs/swagger";
-import {IsNotEmpty, IsNumber, IsString} from "class-validator";
+import {IsNotEmpty, IsString} from "class-validator";
 import {CreatePostDto} from "./create-post.dto";
 
 export class UpdatePostDto extends PartialType(CreatePostDto) {
@@ -26,7 +26,7 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
         description: "the text of the post",
         example: "Hello guys !!!!!"
     })
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
     text: string
 

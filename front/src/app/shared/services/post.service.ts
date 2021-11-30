@@ -27,7 +27,7 @@ export class PostService {
   }
 
   addPost(post: Post) {
-    return this._http.post<Discussion>('http://localhost:3000/post', post, PostService._options()).subscribe()
+    return this._http.post<Post>('http://localhost:3000/post', post, PostService._options()).subscribe()
   }
 
   private static _options(headerList: object = {}): any {
@@ -35,6 +35,7 @@ export class PostService {
   }
 
   deletePost(idPost: string) {
-    return this._http.delete<Discussion>('http://localhost:3000/post/:id'.replace(':id', idPost)).subscribe()
+    console.log("suppressed")
+    return this._http.delete<Post>('http://localhost:3000/post/:id'.replace(':id', idPost)).subscribe()
   }
 }

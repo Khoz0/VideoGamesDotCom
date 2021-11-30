@@ -20,12 +20,12 @@ export class DiscussionsEntity {
     creationDate: string;
 
     @ApiProperty({name: 'author', description: 'The author of the discussions', example: 'xXSasukedu95Xx'})
-    @Exclude()
+    @Expose()
     @Type(() => String)
     author: string;
 
     @ApiProperty({name: 'responses', description: 'the number of responses in the discussions', example: '5'})
-    @Exclude()
+    @Expose()
     @Type(() => Number)
     responses: number;
 

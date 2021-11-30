@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthentificationService} from "../services/authentification.service";
 import {PostService} from "../services/post.service";
+import {DiscussionsService} from "../services/discussions.service";
 
 @Component({
   selector: 'app-post',
@@ -19,7 +20,7 @@ export class PostComponent implements OnInit {
   private _form: FormGroup
   private _admin: boolean;
 
-  constructor(private _activatedRoute:ActivatedRoute, private _authService: AuthentificationService, private _postService: PostService) {
+  constructor(private _activatedRoute:ActivatedRoute, private _authService: AuthentificationService, private _postService: PostService, private _discussionsService: DiscussionsService) {
     this._admin = false;
     this._posts = [] as Post[];
     this._postHided = true
@@ -94,13 +95,13 @@ export class PostComponent implements OnInit {
       creationDate: date
     }
     this._postService.addPost(post)
-    window.location.reload()
+    this._discussionsService.updateDiscussionsAdd(this.id)
   }
 
   deletePost(idPost: string | undefined) {
     if (idPost != null) {
       this._postService.deletePost(idPost)
-      window.location.reload()
+      this._discussionsService.updateDiscussionsDelete(this.id)
     }
 
   }

@@ -3,5 +3,5 @@ export type Discussion = {
   title?: string;
   creationDate?: string;
   author?: string;
-  responses?: number
+  responses: number
 };

@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Discussion} from "../shared/types/discussion.type";
-import {DISCUSSIONS} from "../data/discussions";
 import {DiscussionsService} from "../shared/services/discussions.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Post} from "../shared/types/post.type";
-import {DiscussionModel} from "../shared/model/discussion.model";
-import {map, tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {AuthentificationService} from "../shared/services/authentification.service";
 
@@ -77,6 +73,6 @@ export class ForumComponent implements OnInit {
       responses: 0
     }
     this._discussionsService.addDiscussion(discussion)
-    location.reload()
+    window.location.reload()
   }
 }

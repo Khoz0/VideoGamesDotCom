@@ -23,11 +23,44 @@ export class DiscussionsService {
       );
   }
 
+  getDiscussion(idDiscussion: string): Observable<Discussion> {
+    return this._http.get<Discussion>('http://localhost:3000/discussions/:id'.replace(':id', idDiscussion));
+  }
+
   private static _options(headerList: object = {}): any {
     return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
   }
 
   deleteDiscussion(idDiscussion: string) {
     return this._http.delete<Discussion>('http://localhost:3000/discussions/:id'.replace(':id', idDiscussion)).subscribe()
+  }
+
+  updateDiscussionsAdd(idDiscussion: string) {
+    let discussion:Discussion = {} as Discussion
+    this.getDiscussion(idDiscussion).subscribe(res => {
+      discussion = {
+        title: res.title,
+        creationDate: res.creationDate,
+        author: res.author,
+        responses: res.responses+1
+      }
+      console.log("")
+      return this._http.put<Discussion>('http://localhost:3000/discussions/:id'.replace(':id', idDiscussion), discussion, DiscussionsService._options()).subscribe()
+    })
+
+  }
+
+  updateDiscussionsDelete(idDiscussion: string) {
+    let discussion:Discussion = {} as Discussion
+    this.getDiscussion(idDiscussion).subscribe(res => {
+      discussion = {
+        title: res.title,
+        creationDate: res.creationDate,
+        author: res.author,
+        responses: res.responses-1
+      }
+      console.log("")
+      return this._http.put<Discussion>('http://localhost:3000/discussions/:id'.replace(':id', idDiscussion), discussion, DiscussionsService._options()).subscribe()
+    })
   }
 }

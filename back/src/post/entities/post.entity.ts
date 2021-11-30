@@ -20,12 +20,12 @@ export class PostEntity {
     author: string;
 
     @ApiProperty({name: 'text', description: 'the text of the post', example: 'Hello guys !!!!!'})
-    @Exclude()
+    @Expose()
     @Type(() => String)
     text: string;
 
     @ApiProperty({name: 'creationDate', description: 'Date of the creation of the post', example: '28/11/2021'})
-    @Exclude()
+    @Expose()
     @Type(() => String)
     creationDate: string;
 
