@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  Put,
+  Put, UseGuards,
 } from '@nestjs/common';
 import { GamesService } from './games.service';
 import { CreateGameDto } from './dto/create-game.dto';
@@ -23,6 +23,10 @@ import {
 } from '@nestjs/swagger';
 import { GameEntity } from './entities/game.entity';
 import {HandlerParams} from "./validators/handler-params";
+import {hasRoles} from "../auth/decorators/roles.decorator";
+import {PersonRole} from "../people/model/people.interface";
+import {JwtAuthGuard} from "../auth/guards/jwt-guard";
+import {RolesGuard} from "../auth/guards/roles.guard";
 
 @Controller('games')
 export class GamesController {
@@ -48,6 +52,8 @@ export class GamesController {
     description: 'Payload to create new game',
     type: CreateGameDto,
   })
+  @hasRoles(PersonRole.ADMIN)
+  @UseGuards(RolesGuard)
   @Post()
   create(@Body() createGameDto: CreateGameDto) {
     return this.gamesService.create(createGameDto);
@@ -114,6 +120,8 @@ export class GamesController {
     description: 'Payload to update a person',
     type: UpdateGameDto,
   })
+  @hasRoles(PersonRole.ADMIN)
+  @UseGuards(RolesGuard)
   @Put(':id')
   update(@Param() params: HandlerParams, @Body() updateGameDto: UpdateGameDto) {
     return this.gamesService.update(params.id, updateGameDto);
@@ -137,6 +145,8 @@ export class GamesController {
     type: String,
     allowEmptyValue: false,
   })
+  @hasRoles(PersonRole.ADMIN)
+  @UseGuards(RolesGuard)
   @Delete(':id')
   remove(@Param() params: HandlerParams) {
     return this.gamesService.remove(params.id);

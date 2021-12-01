@@ -8,7 +8,7 @@ import {
   Delete,
   Put,
   UseInterceptors,
-  ClassSerializerInterceptor,
+  ClassSerializerInterceptor, UseGuards,
 } from '@nestjs/common';
 import { PeopleService } from './people.service';
 import { CreatePersonDto } from './dto/create-person.dto';
@@ -32,6 +32,12 @@ import {
   HandlerParamsPseudo,
 } from './validators/handler-params';
 import { LoginPersonDto } from './dto/login-person.dto';
+import {hasRoles} from "../auth/decorators/roles.decorator";
+import {PersonRole} from "./model/people.interface";
+import {RolesGuard} from "../auth/guards/roles.guard";
+import {JwtAuthGuard} from "../auth/guards/jwt-guard";
+import {PersonGuard} from "../auth/guards/person.guard";
+
 
 @ApiTags('people')
 @Controller('people')
@@ -153,6 +159,7 @@ export class PeopleController {
     description: 'Payload to update a person',
     type: UpdatePersonDto,
   })
+  @UseGuards(JwtAuthGuard, PersonGuard)
   @Put(':id')
   update(
     @Param() params: HandlerParams,
@@ -168,7 +175,7 @@ export class PeopleController {
     description: "The person with the given id doesn't exist in the database",
   })
   @ApiBadRequestResponse({
-    description: 'The paramater provided is not good',
+    description: 'The parameter provided is not good',
   })
   @ApiUnprocessableEntityResponse({
     description: "The request can't be performed in the database",
@@ -179,6 +186,8 @@ export class PeopleController {
     type: String,
     allowEmptyValue: false,
   })
+  @hasRoles(PersonRole.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
   remove(@Param() params: HandlerParams): Observable<void> {
     return this.peopleService.remove(params.id);
@@ -186,7 +195,7 @@ export class PeopleController {
 
   @ApiOkResponse({
     description: 'The person has been successfully loged',
-    type: String
+    type: String,
   })
   @ApiBadRequestResponse({
     description: 'The pseudo or the password is incorrect',

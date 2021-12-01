@@ -6,7 +6,7 @@ import {
     Get,
     Param,
     Post,
-    Put,
+    Put, UseGuards,
     UseInterceptors
 } from '@nestjs/common';
 import {Observable} from "rxjs";
@@ -24,6 +24,10 @@ import {CreatePostDto} from "./dto/create-post.dto";
 import {PostEntity} from "./entities/post.entity";
 import {UpdatePostDto} from "./dto/update-post.dto";
 import {PostService} from "./post.service";
+import {hasRoles} from "../auth/decorators/roles.decorator";
+import {PersonRole} from "../people/model/people.interface";
+import {JwtAuthGuard} from "../auth/guards/jwt-guard";
+import {RolesGuard} from "../auth/guards/roles.guard";
 
 
 @ApiTags('post')
@@ -143,6 +147,8 @@ export class PostController {
         type: String,
         allowEmptyValue: false,
     })
+    @hasRoles(PersonRole.ADMIN)
+    @UseGuards(RolesGuard)
     @Delete(':id')
     remove(@Param() params: HandlerParams): Observable<void> {
         return this._postService.remove(params.id);

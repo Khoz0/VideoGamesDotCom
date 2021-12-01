@@ -4,7 +4,9 @@ import { PeopleModule } from '../people/people.module';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { jwtConstants } from './constants';
-import { JwtStrategy } from './jwt-strategy';
+import { JwtStrategy } from './guards/jwt-strategy';
+import { RolesGuard } from './guards/roles.guard';
+import { JwtAuthGuard } from './guards/jwt-guard';
 
 @Module({
   imports: [
@@ -15,7 +17,7 @@ import { JwtStrategy } from './jwt-strategy';
       signOptions: { expiresIn: '10000s' },
     }),
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, RolesGuard, JwtAuthGuard],
   exports: [AuthService],
 })
 export class AuthModule {}

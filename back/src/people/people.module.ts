@@ -13,5 +13,6 @@ import { AuthModule } from '../auth/auth.module';
   ],
   controllers: [PeopleController],
   providers: [PeopleService, PeopleDao, Logger],
+  exports: [PeopleService],
 })
 export class PeopleModule {}

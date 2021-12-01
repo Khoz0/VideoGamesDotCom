@@ -5,3 +5,8 @@ export interface Person {
   password?: string;
   role?: string;
 }
+
+export enum PersonRole {
+  ADMIN = 'Admin',
+  USER = 'User',
+}

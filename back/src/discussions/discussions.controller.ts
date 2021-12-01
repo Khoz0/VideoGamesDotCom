@@ -6,7 +6,7 @@ import {
   Get,
   Param,
   Post,
-  Put,
+  Put, UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 
@@ -25,6 +25,10 @@ import {HttpInterceptor} from "../interceptors/http.interceptor";
 import {DiscussionsEntity} from "./entities/discussions.entity";
 import {HandlerParams} from "../people/validators/handler-params";
 import {UpdateDiscussionDto} from "./dto/update-discussion.dto";
+import {hasRoles} from "../auth/decorators/roles.decorator";
+import {PersonRole} from "../people/model/people.interface";
+import {JwtAuthGuard} from "../auth/guards/jwt-guard";
+import {RolesGuard} from "../auth/guards/roles.guard";
 
 @ApiTags('discussions')
 @Controller('discussions')
@@ -148,6 +152,8 @@ export class DiscussionsController {
     type: String,
     allowEmptyValue: false,
   })
+  @hasRoles(PersonRole.ADMIN)
+  @UseGuards(RolesGuard)
   @Delete(':id')
   remove(@Param() params: HandlerParams): Observable<void> {
     return this._discussionService.remove(params.id);
