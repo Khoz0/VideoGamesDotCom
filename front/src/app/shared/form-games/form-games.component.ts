@@ -37,7 +37,7 @@ export class FormGamesComponent implements OnInit {
       image: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      test: new FormControl('', Validators.compose([
+      test: new FormControl('', Validators.compose([Validators.required
       ])),
       platform: new FormControl('', Validators.compose([
         Validators.required

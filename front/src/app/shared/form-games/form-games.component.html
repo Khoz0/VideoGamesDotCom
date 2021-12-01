@@ -52,8 +52,11 @@
     <div style="text-align: center; margin-bottom: 2vh">
       <mat-form-field appearance="outline" style="width: 50vh">
         <mat-label>Test</mat-label>
-        <textarea  name="test" matInput placeholder="Placeholder" formControlName="test">
+        <textarea  name="test" matInput placeholder="Placeholder" formControlName="test" required>
         </textarea>
+        <mat-error *ngIf="form.get('paltform')?.hasError('required')">
+          Le champs est <strong>Obligatoire</strong>
+        </mat-error>
       </mat-form-field>
     </div>
     <div style="text-align: center; margin-bottom: 2vh">
