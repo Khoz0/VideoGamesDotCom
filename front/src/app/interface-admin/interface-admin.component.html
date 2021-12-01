@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row" style="text-align: center" >
+    <div class="col-md-12">
+      <h1>INTERFACE ADMINISTRATEUR</h1>
+    </div>
+  </div>
+  <div class="row" style="text-align: center" >
+    <div class="col-md-12">
+      <h2>Gestion des utilisateurs</h2>
+    </div>
+  </div>
+  <div class="row" style="text-align: center">
+    <div class="col-md-2"></div>
+    <mat-card class="col-md-8">
+      <div *ngFor="let person of people">
+        {{person.pseudo}}
+        <mat-icon (click)="deleteUser(person.id)">
+          delete
+        </mat-icon>
+      </div>
+    </mat-card>
+  </div>
+  <div class="col-md-2"></div>
+</div>

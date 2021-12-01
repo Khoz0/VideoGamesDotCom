@@ -35,7 +35,6 @@ export class PostService {
   }
 
   deletePost(idPost: string) {
-    console.log("suppressed")
     return this._http.delete<Post>('http://localhost:3000/post/:id'.replace(':id', idPost)).subscribe()
   }
 }
