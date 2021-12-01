@@ -35,8 +35,7 @@ import { LoginPersonDto } from './dto/login-person.dto';
 import {hasRoles} from "../auth/decorators/roles.decorator";
 import {PersonRole} from "./model/people.interface";
 import {RolesGuard} from "../auth/guards/roles.guard";
-import {JwtAuthGuard} from "../auth/guards/jwt-guard";
-import {PersonGuard} from "../auth/guards/person.guard";
+
 
 
 @ApiTags('people')
@@ -159,7 +158,6 @@ export class PeopleController {
     description: 'Payload to update a person',
     type: UpdatePersonDto,
   })
-  @UseGuards(PersonGuard)
   @Put(':id')
   update(
     @Param() params: HandlerParams,
