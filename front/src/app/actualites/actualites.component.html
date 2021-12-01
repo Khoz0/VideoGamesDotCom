@@ -12,7 +12,7 @@
     <form [formGroup]="form">
       <div style="text-align: center; margin-top: 5vh">
         <mat-form-field appearance="outline" style="width: 80vh">
-          <mat-label>Titre de la discussion</mat-label>
+          <mat-label>Titre de l'article</mat-label>
           <input name="title" matInput placeholder="Mon meilleur titre ! :•)" formControlName="title" minlength="1" required>
           <mat-error *ngIf="form.get('title')?.hasError('required')">
             Le champs est <strong>Obligatoire</strong>
@@ -22,7 +22,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 80vh">
-          <mat-label>Titre de la discussion</mat-label>
+          <mat-label>Contenu de l'article</mat-label>
           <input name="text" matInput placeholder="Mon actualité ! :•)" formControlName="text" minlength="1" required>
           <mat-error *ngIf="form.get('text')?.hasError('required')">
             Le champs est <strong>Obligatoire</strong>
