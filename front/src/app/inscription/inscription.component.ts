@@ -30,7 +30,7 @@ export class InscriptionComponent implements OnInit {
         Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}")
       ])),
       password: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(7)
+        Validators.required, Validators.minLength(7), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
       ])),
       role: new FormControl('User', Validators.compose([
         Validators.required, Validators.minLength(4)
