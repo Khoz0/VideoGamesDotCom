@@ -37,6 +37,7 @@ import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
+import { NewestOrderPipe } from './shared/pipes/newest-order.pipe';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {MatOptionModule} from "@angular/material/core";
     DialogComponent,
     RandomOrderPipe,
     GamesListComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    NewestOrderPipe
   ],
   imports: [
     BrowserModule,
