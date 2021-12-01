@@ -159,7 +159,7 @@ export class PeopleController {
     description: 'Payload to update a person',
     type: UpdatePersonDto,
   })
-  @UseGuards(JwtAuthGuard, PersonGuard)
+  @UseGuards(PersonGuard)
   @Put(':id')
   update(
     @Param() params: HandlerParams,
@@ -187,7 +187,7 @@ export class PeopleController {
     allowEmptyValue: false,
   })
   @hasRoles(PersonRole.ADMIN)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(RolesGuard)
   @Delete(':id')
   remove(@Param() params: HandlerParams): Observable<void> {
     return this.peopleService.remove(params.id);
