@@ -77,7 +77,7 @@ export class ForumComponent implements OnInit {
     window.location.reload()
   }
 
-  isAuthenticated(){
+  isAuthenticated(): boolean {
     return this._authService.isAuthenticated()
   }
 }
