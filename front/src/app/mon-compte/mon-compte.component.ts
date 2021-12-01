@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthentificationService} from "../shared/services/authentification.service";
 import {Router} from "@angular/router";
-import {CustomValidators} from "../inscription/custom-validators";
-import {catchError, map, tap} from "rxjs/operators";
-import {from, of, throwError} from "rxjs";
 import {PeopleService} from "../shared/services/people.service";
 import {Person} from "../shared/types/person.type";
 
@@ -18,7 +15,7 @@ export class MonCompteComponent implements OnInit {
   private _hide: boolean;
   private _hideRepeat: boolean;
   private _form: FormGroup;
-  private _err: boolean
+  private  _err: boolean
   private _person: Person;
   private _modify : boolean;
 
@@ -85,11 +82,6 @@ export class MonCompteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._peopleService.fetchOne(this._authService.getPersonId()).subscribe(
-      {
-        next: (person: Person) => this._person = person
-      }
-    )
     this.modify = false;
   }
 
@@ -99,11 +91,6 @@ export class MonCompteComponent implements OnInit {
       && this.person.id && this.form.valid) {
         this._peopleService.update(this.person.id, this.form.value, this.form.controls['password'].value, this.form.controls["pseudo"].value)
           .subscribe()
-        this._peopleService.fetchOne(this._authService.getPersonId()).subscribe(
-        {
-          next: (person: Person) => this._person = person
-        }
-      )
     }
     this.form.controls['password'].setValue("");
     this.modify = false;
@@ -115,20 +102,23 @@ export class MonCompteComponent implements OnInit {
 
   set modify(val: boolean) {
     this._modify = val;
-    if(!val) {
-      this.form.controls['pseudo'].disable();
-      this.form.controls['mail'].disable();
-      this.form.controls['role'].disable();
-    } else {
-      this.form.controls['pseudo'].enable();
-      this.form.controls['pseudo'].setValue(this.person.pseudo);
-      this.form.controls['mail'].enable();
-      this.form.controls['mail'].setValue(this.person.mail);
-      this.form.controls['role'].setValue(this.person.role);
-      if (this.admin) {
-        this.form.controls['role'].enable();
+    this._peopleService.fetchOne(this._authService.getPersonId()).subscribe(
+      {
+        next:  (person: Person) => {
+       this._person = person;
+      if(!val) {
+        this.form.disable();
+      } else {
+        this.form.enable();
+        this.form.controls['pseudo'].setValue(this._person.pseudo);
+        this.form.controls['mail'].setValue(this._person.mail);
+        this.form.controls['role'].setValue(this._person.role);
+        if (!this.admin) {
+          this.form.controls['role'].disable();
+        }
       }
     }
+      })
   }
 
 
