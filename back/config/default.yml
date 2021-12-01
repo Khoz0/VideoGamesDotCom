@@ -17,5 +17,23 @@ swagger_games:
     version: 1.0
     tag: games
     path: documentation/games
+swagger_discussions:
+  title: VideoGamesDotCom Games
+  description: Api of all discussions in the website
+  version: 1.0
+  tag: discussions
+  path: documentation/discussions
+swagger_posts:
+  title: VideoGamesDotCom Games
+  description: Api of all post in the website
+  version: 1.0
+  tag: post
+  path: documentation/posts
+swagger_actualites:
+  title: VideoGamesDotCom Games
+  description: Api of all actualites in the website
+  version: 1.0
+  tag: post
+  path: documentation/actualites
 mongodb:
   uri: mongodb://localhost:27017/vgdc
