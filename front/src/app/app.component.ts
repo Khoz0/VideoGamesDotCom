@@ -1,18 +1,21 @@
-import {Component, HostBinding} from '@angular/core';
+import {Component, EventEmitter, HostBinding, OnInit} from '@angular/core';
 import {AuthentificationService} from "./shared/services/authentification.service";
+import {GamesService} from "./shared/services/games.service";
+import {Game} from "./shared/types/game.type";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
 
   private _title = 'VideoGamesDotCom';
   private _lightTheme = true;
   private _isDark = false;
 
   constructor(private _authService: AuthentificationService) {
+
   }
 
   @HostBinding('class')

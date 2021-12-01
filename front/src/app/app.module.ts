@@ -33,6 +33,10 @@ import { DialogComponent } from './shared/dialog/dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {RandomOrderPipe} from "./shared/pipes/randomOrder.pipe";
 import { GamesListComponent } from './games-list/games-list.component';
+import { SearchBarComponent } from './shared/search-bar/search-bar.component';
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatOptionModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -53,24 +57,28 @@ import { GamesListComponent } from './games-list/games-list.component';
     FormGamesComponent,
     DialogComponent,
     RandomOrderPipe,
-    GamesListComponent
+    GamesListComponent,
+    SearchBarComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        JwtModule,
-        MatGridListModule,
-        MatDialogModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    JwtModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+  ],
   providers: [JwtHelperService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS}, {
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptor,

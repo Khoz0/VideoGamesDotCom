@@ -9,7 +9,18 @@ import {Injectable} from "@angular/core";
 })
 export class GamesService {
 
+  private _searchOptions=[] as Game[]
   constructor(private _http: HttpClient) {
+  }
+
+
+  get searchOptions(): Game[] {
+    return this._searchOptions;
+  }
+
+
+  set searchOptions(value: Game[]) {
+    this._searchOptions = value;
   }
 
   fetch(): Observable<Game[]> {
@@ -30,4 +41,24 @@ export class GamesService {
   update(id: string, game: Game): Observable<any> {
     return this._http.put("http://localhost:3000/games/"+id, game);
   }
+
+  filteredOptions() {
+    const filteredGames = [];
+    let games = [] as Game[];
+    this.fetch().subscribe(
+      result => {
+        games = result;
+      }
+    )
+
+    for (let game of games) {
+      for (let option of this._searchOptions) {
+        if (option.title === game.title) {
+          filteredGames.push(game);
+        }
+      }
+    }
+    return filteredGames;
+  }
+
 }
