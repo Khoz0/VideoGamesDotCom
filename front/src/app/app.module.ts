@@ -38,6 +38,7 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
 import { NewestOrderPipe } from './shared/pipes/newest-order.pipe';
+import { InterfaceAdminComponent } from './interface-admin/interface-admin.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { NewestOrderPipe } from './shared/pipes/newest-order.pipe';
     RandomOrderPipe,
     GamesListComponent,
     SearchBarComponent,
-    NewestOrderPipe
+    NewestOrderPipe,
+    InterfaceAdminComponent
   ],
   imports: [
     BrowserModule,

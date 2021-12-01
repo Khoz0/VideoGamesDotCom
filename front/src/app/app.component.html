@@ -7,6 +7,7 @@
     <a mat-button [routerLink]="'/actualites'"> Actus </a>
     <a mat-button [routerLink]="'/forum'"> Forum </a>
     <a mat-button [routerLink]="'/mon-compte'" *ngIf="isConnected"> Mon compte </a>
+    <a mat-button [routerLink]="'/admin'" *ngIf="isAdmin"> Admin </a>
     <div class="spacer">
       <app-search-bar></app-search-bar>
     </div>

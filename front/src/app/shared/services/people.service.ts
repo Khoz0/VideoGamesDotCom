@@ -2,8 +2,9 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Person} from "../types/person.type";
-import {catchError, map, tap} from "rxjs/operators";
+import {defaultIfEmpty, map, filter, tap} from "rxjs/operators";
 import {AuthentificationService, JWT_NAME} from "./authentification.service";
+import {Post} from "../types/post.type";
 
 export interface LoginForm {
   pseudo: string;
@@ -36,5 +37,16 @@ export class PeopleService {
 
   }
 
+  fetch(): Observable<Person[]> {
+    return this._http.get<Person[]>("http://localhost:3000/people")
+      .pipe(
+        tap(_ => console.log('fetched people'))
+      );
+  }
 
+  deleteUser(idPerson: string) {
+    return this._http.delete<Person>('http://localhost:3000/people/:id'.replace(':id', idPerson)).subscribe(res => {
+      location.reload()
+    })
+  }
 }
