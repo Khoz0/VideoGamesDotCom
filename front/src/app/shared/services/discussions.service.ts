@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, tap} from "rxjs/operators";
+import {map, tap, window} from "rxjs/operators";
 import {DiscussionModel} from "../model/discussion.model";
 import {Observable} from "rxjs";
 import {Discussion} from "../types/discussion.type";
@@ -45,7 +45,9 @@ export class DiscussionsService {
         responses: res.responses+1
       }
       console.log("")
-      return this._http.put<Discussion>('http://localhost:3000/discussions/:id'.replace(':id', idDiscussion), discussion, DiscussionsService._options()).subscribe()
+      return this._http.put<Discussion>('http://localhost:3000/discussions/:id'.replace(':id', idDiscussion), discussion, DiscussionsService._options()).subscribe(
+        res2 => {location.reload()}
+      )
     })
 
   }
@@ -60,7 +62,9 @@ export class DiscussionsService {
         responses: res.responses-1
       }
       console.log("")
-      return this._http.put<Discussion>('http://localhost:3000/discussions/:id'.replace(':id', idDiscussion), discussion, DiscussionsService._options()).subscribe()
+      return this._http.put<Discussion>('http://localhost:3000/discussions/:id'.replace(':id', idDiscussion), discussion, DiscussionsService._options()).subscribe(
+        res2 => {location.reload()}
+      )
     })
   }
 }

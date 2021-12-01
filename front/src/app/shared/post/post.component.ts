@@ -96,7 +96,6 @@ export class PostComponent implements OnInit {
     }
     this._postService.addPost(post)
     this._discussionsService.updateDiscussionsAdd(this.id)
-    location.reload();
   }
 
   deletePost(idPost: string | undefined) {
@@ -104,6 +103,9 @@ export class PostComponent implements OnInit {
       this._postService.deletePost(idPost)
       this._discussionsService.updateDiscussionsDelete(this.id)
     }
+  }
 
+  isAuthenticated(){
+    return this._authService.isAuthenticated()
   }
 }

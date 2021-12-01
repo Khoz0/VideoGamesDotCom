@@ -76,4 +76,8 @@ export class ForumComponent implements OnInit {
     this._discussionsService.addDiscussion(discussion)
     window.location.reload()
   }
+
+  isAuthenticated(){
+    return this._authService.isAuthenticated()
+  }
 }
