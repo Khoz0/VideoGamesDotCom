@@ -17,7 +17,7 @@
 </div>
 <div class="container">
   <div class="row" style="margin-top: 5vh; margin-bottom: 5vh;">
-    <mat-card class="col-md-3" *ngFor="let discussion of discussions | randomOrder | slice:0:3; let i=index" [routerLink]="'/post/'+ discussion.id" style="margin-right: 3vh">
+    <mat-card class="col-md-3" *ngFor="let discussion of discussions | newestOrder | slice:0:3; let i=index" [routerLink]="'/post/'+ discussion.id" style="margin-right: 3vh">
       <mat-card-title-group class="align-content-center">
         <mat-card-title>
           {{ discussion.title }}
@@ -33,12 +33,12 @@
   </div>
 </div><div class="container">
   <div class="row" style="margin-top: 5vh; margin-bottom: 5vh;">
-    <mat-card class="col-md-3" *ngFor="let actualite of actualites | randomOrder | slice:0:3; let i=index" style="margin-right: 3vh">
+    <mat-card class="col-md-3" *ngFor="let actualite of actualites | newestOrder | slice:0:3; let i=index" style="margin-right: 3vh">
       <mat-card-title-group class="align-content-center">
         <mat-card-title>
           {{ actualite.title}}
         </mat-card-title>
-        <mat-card-subtitle>
+        <mat-card-subtitle style="width: fit-content; word-break: break-all">
           {{actualite.text}}
         </mat-card-subtitle>
       </mat-card-title-group>
