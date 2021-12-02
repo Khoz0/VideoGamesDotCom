@@ -14,3 +14,18 @@ db.getCollection('games').createIndex(
     {title: 1},
     {unique: true}
 );
+
+db.getCollection('discussions').createIndex(
+    {_id: 1},
+    {unique: true}
+);
+
+db.getCollection('posts').createIndex(
+    {_id: 1},
+    {unique: true}
+);
+
+db.getCollection('actualites').createIndex(
+    {title: 1},
+    {unique: true}
+);

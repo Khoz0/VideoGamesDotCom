@@ -64,6 +64,69 @@ db.getCollection('games').insertMany([
 
 db.getCollection('games').find({});
 
+db.createCollection("discussions");
+
+db.getCollection('discussions').insertMany([
+  {
+    "_id" : ObjectId("61a887877d356e795664e1ee"),
+    "responses" : 1,
+    "author" : "aa",
+    "creationDate" : "02/12/2021",
+    "title" : "Ma première disucssion"
+  },
+  {
+    "_id" : ObjectId("61a887a97d356e795664e1fa"),
+    "responses" : 1,
+    "author" : "aa",
+    "creationDate" : "02/12/2021",
+    "title" : "Ma deuxième discussion"
+  }
+]);
+
+db.getCollection('discussions').find({});
+
+db.createCollection("posts");
+
+db.getCollection('posts').insertMany([
+  {
+    "_id" : ObjectId("61a887947d356e795664e1f3"),
+    "creationDate" : "02/12/2021",
+    "text" : "Bonjour à tous !",
+    "author" : "aa",
+    "idDiscussion" : "61a887877d356e795664e1ee"
+  },
+  {
+    "_id" : ObjectId("61a887b57d356e795664e200"),
+    "creationDate" : "02/12/2021",
+    "text" : "Et coucou tout le monde !",
+    "author" : "aa",
+    "idDiscussion" : "61a887a97d356e795664e1fa"
+  }
+]);
+
+db.getCollection('posts').find({});
+
+db.createCollection("actualites");
+
+db.getCollection('actualites').insertMany([
+  {
+    "_id" : ObjectId("61a886f97d356e795664e1e5"),
+    "author" : "aa",
+    "creationDate" : "02/12/2021",
+    "text" : "Après un Forza Horizon 4 nous emmenant du côté de la Grandre-Bretagne, c'est au Mexique que Microsoft nous embarque. Forza Horizon 5 nous propose donc des paysages très variés, allant du désert à la jungle, en passant un volcan, des aires urbaines, des plaines, des marais, une façade maritime ou encore la montagne. Porté par la liberté qu'il offre aux joueurs et les très nombreux bolides disponibles, le titre s'est fait une très jolie place sur les consoles et les PC, devenant temporairement le meilleur lancement d'un jeu Xbox avant que le multijoueur de Halo Infinite Multiplayer ne vienne lui piquer la place.  Cependant, les fonctionnalités en ligne du titre semblent connaître de nombreuses difficultés, et un certain nombre de joueurs commence à s'impatienter malgré la publication d'un patch au milieu du mois de novembre. C'est notamment le cas de Don Joewon Song, un créateur de contenu britannique très connu au sein de la communauté Forza, qui a profité de son aura pour pousser un coup de gueule au sujet du multijoueur.",
+    "title" : "Forza Horizon 5 : Un membre important de la communauté exprime sa colère !"
+  },
+  {
+    "_id" : ObjectId("61a887297d356e795664e1e9"),
+    "author" : "aa",
+    "creationDate" : "02/12/2021",
+    "text" : "Teamfight Tactics est un auto-battler. Grossièrement, il s'agit d'un jeu d'échecs automatique dans lequel les joueurs placent sur le plateau un certain nombre de personnages, aux capacités variées, durant une phase préparatoire. Ensuite, ces mêmes personnages s'affrontent, généralement sans l'intervention directe des joueurs, ouvrant la voie à une perte de points de vie et à d'autres mécaniques. Tous les détails sur le fonctionnement du jeu sont à retrouver dans notre test.  ARCANE X TEAMFIGHT TACTICS, C'EST POUR BIENTÔT ! Ce titre, par ailleurs très populaire, intégrera bientôt un personnage de la série Arcane, disponible sur Netflix. Saluée dans le monde entier, la série est un immense carton, propulsant Riot et le studio d'animation Fortiche vers de nouveaux sommets. D'ailleurs, une seconde saison a été officialisée, mais il ne faut pas l'attendre avant 2023 au minimum. Mais revenons-en au personnage annoncé. Il s'agit de Silco, un être jugé impitoyable et égocentrique qui pense que le seul moyen de libérer la ville de Zaun du joug de la ville Piltover est un conflit durant lequel le sang doit être versé.",
+    "title" : "Teamfight Tactics : Un personnage de la série Arcane (LoL) va débarquer dans l'auto-battler !"
+  }
+]);
+
+db.getCollection('actualites').find({});
+
 db.getCollection('people').createIndex(
     {pseudo: 1},
     {unique: true}
@@ -75,6 +138,21 @@ db.getCollection('people').createIndex(
 );
 
 db.getCollection('games').createIndex(
+    {title: 1},
+    {unique: true}
+);
+
+db.getCollection('discussions').createIndex(
+    {_id: 1},
+    {unique: true}
+);
+
+db.getCollection('posts').createIndex(
+    {_id: 1},
+    {unique: true}
+);
+
+db.getCollection('actualites').createIndex(
     {title: 1},
     {unique: true}
 );

@@ -15,9 +15,6 @@
     <a mat-button [routerLink]="'/inscription'" *ngIf="!isConnected"> Inscription </a>
     <a mat-button (click)="connexion()" [routerLink]="'/connexion'" *ngIf="!isConnected"> Connexion </a>
     <a mat-button (click)="deconnexion()" [routerLink]="'/home'" *ngIf="isConnected"> Deconnexion </a>
-    <button mat-icon-button matSuffix (click)="lightTheme = !lightTheme" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="lightTheme">
-      <mat-icon>{{lightTheme ? 'brightness_7' : 'brightness_3'}}</mat-icon>
-    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 

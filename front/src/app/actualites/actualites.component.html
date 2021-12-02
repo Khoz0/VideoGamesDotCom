@@ -41,19 +41,19 @@
 </div>
 
 <div class="container">
-  <div class="row" style="margin-top: 5vh" *ngFor="let actualite of actualites">
+  <div class="row" style="margin-top: 5vh" *ngFor="let actualite of actualites | newestOrder | slice:0:3; let i=index">
     <mat-card class="col-md-2">
-      <mat-card-title style="word-break: break-all">
+      <mat-card-title style="word-break: break-word">
         {{actualite.title}}
       </mat-card-title>
     </mat-card>
-    <mat-card class="col-md-7" style="word-break: break-all">
+    <mat-card class="col-md-7" style="word-break: break-word">
       <mat-card-content>
         {{actualite.text}}
       </mat-card-content>
     </mat-card>
     <mat-card class="col-md-2" >
-      <mat-card-title style="text-align: center; word-break: break-all">
+      <mat-card-title style="text-align: center; word-break: break-word">
         {{actualite.creationDate}}
       </mat-card-title>
     </mat-card>

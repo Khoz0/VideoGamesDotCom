@@ -3,16 +3,16 @@
   <div  *ngFor="let post of posts">
     <div class="row" *ngIf="post.idDiscussion === id">
       <mat-card  class="col-md-2" >
-        <mat-card-title  style="word-break: break-all">
+        <mat-card-title  style="word-break: break-word">
           <p style="color: dodgerblue"> {{post.author}}</p>
         </mat-card-title>
-        <mat-card-content  style="word-break: break-all">
+        <mat-card-content  style="word-break: break-word">
           le
           {{post.creationDate}}
         </mat-card-content>
       </mat-card>
       <mat-card class="col-md-9">
-          <mat-card-content  style="word-break: break-all">
+          <mat-card-content  style="word-break: break-word">
             {{post.text}}
           </mat-card-content>
       </mat-card>

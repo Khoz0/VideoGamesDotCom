@@ -30,6 +30,6 @@
   <div class="col-md-2"></div>
 </div>
 
-<div *ngFor="let discussion of discussions">
+<div *ngFor="let discussion of discussions | newestOrder | slice:0:3; let i=index">
   <app-discussion [currentDiscussion] = discussion></app-discussion>
 </div>

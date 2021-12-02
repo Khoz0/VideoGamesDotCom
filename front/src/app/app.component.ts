@@ -11,7 +11,6 @@ import {Game} from "./shared/types/game.type";
 export class AppComponent{
 
   private _title = 'VideoGamesDotCom';
-  private _lightTheme = true;
   private _isDark = false;
 
   constructor(private _authService: AuthentificationService) {
@@ -37,15 +36,6 @@ export class AppComponent{
 
   get isAdmin(): boolean {
     return this._authService.getPersonRole() === "Admin" ;
-  }
-
-
-  get lightTheme(): boolean {
-    return this._lightTheme;
-  }
-
-  set lightTheme(value: boolean) {
-    this._lightTheme = value;
   }
 
   deconnexion() {
