@@ -20,7 +20,7 @@ export class PeopleService {
   }
 
   fetchOne(id: string): Observable<Person> {
-    return this._http.get<Person>("http://0.0.0.0:3000/people/"+id).pipe(
+    return this._http.get<Person>("http://localhost:3000/people/"+id).pipe(
       map((_: Person) => {
         return _
       }),
@@ -28,7 +28,7 @@ export class PeopleService {
   }
 
   update(id: string, person:Person , password:string, pseudo: string) : Observable<any> {
-    return this._http.put("http://0.0.0.0:3000/people/"+id, person).pipe(
+    return this._http.put("http://localhost:3000/people/"+id, person).pipe(
       map(() => {
         this._authService.logout();
         this._authService.loginNoForm(pseudo, password).subscribe()

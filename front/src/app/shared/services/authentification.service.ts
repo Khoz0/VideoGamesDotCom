@@ -34,7 +34,7 @@ export class AuthentificationService{
     )
   }
   loginNoForm(pseudo: string, password: string) {
-    return this._http.post('http://0.0.0.0:3000/people/login', {pseudo: pseudo, password: password}, {responseType: 'text'}).pipe(
+    return this._http.post('http://localhost:3000/people/login', {pseudo: pseudo, password: password}, {responseType: 'text'}).pipe(
       map((token) => {
         localStorage.setItem(JWT_NAME, token)
         return token;
